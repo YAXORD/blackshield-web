@@ -1,0 +1,2290 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackShield | Cyber & Web Studio</title>
+    <meta name="description"
+        content="BlackShield - Ingeniería digital de alto impacto, desarrollo web a medida, publicidad de conversión y privacidad táctica con hardware blindado.">
+
+    <!-- Google Fonts: Cinzel, Inter & Noto Sans Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'Noto Sans Arabic', 'sans-serif'],
+                        arabic: ['Noto Sans Arabic', 'sans-serif'],
+                    },
+                    colors: {
+                        void: '#030305',
+                        obsidian: '#08090d',
+                        darkpanel: '#0e1118',
+                        cyanGlow: '#00f0ff',
+                        sapphire: '#0051ff',
+                    },
+                    animation: {
+                        'glow-pulse': 'glow 4s ease-in-out infinite',
+                        'float-subtle': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(0, 240, 255, 0.3))' },
+                            '50%': { opacity: '0.9', filter: 'drop-shadow(0 0 30px rgba(0, 240, 255, 0.7))' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #030305;
+            color: #eaecf0;
+            overflow-x: hidden;
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        }
+
+        #space-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .text-metallic-chrome {
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 30%, #64748b 50%, #f8fafc 70%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-stealth {
+            background: rgba(14, 17, 24, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+        }
+
+        .glass-stealth-card {
+            background: linear-gradient(145deg, rgba(20, 24, 33, 0.72) 0%, rgba(9, 11, 16, 0.9) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-stealth-card:hover {
+            border-color: rgba(0, 240, 255, 0.35);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 240, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .btn-chrome-primary {
+            position: relative;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f8fafc;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-chrome-primary:hover {
+            border-color: #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4), inset 0 0 15px rgba(0, 240, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .btn-chrome-primary::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .btn-chrome-primary:hover::before {
+            left: 100%;
+        }
+
+        /* RTL Support Helpers */
+        [dir="rtl"] {
+            text-align: right;
+        }
+
+        [dir="rtl"] .text-center {
+            text-align: center;
+        }
+
+        [dir="rtl"] .text-left {
+            text-align: right;
+        }
+
+        [dir="rtl"] .font-cinzel {
+            font-family: 'Noto Sans Arabic', 'Cinzel', serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #030305;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-cyan-500/30 selection:text-white">
+
+    <!-- Canvas de Fondo Constelaciones -->
+    <canvas id="space-canvas"></canvas>
+
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- NAVBAR FLOTANTE -->
+        <header class="sticky top-0 z-50 glass-stealth border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+                <!-- Logotipo BlackShield Táctico -->
+                <a href="#" class="flex items-center gap-3.5 group">
+                    <div
+                        class="w-10 h-10 relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                        <svg viewBox="0 0 100 115"
+                            class="w-full h-full filter drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">
+                            <defs>
+                                <linearGradient id="shieldChromeNav" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffffff" />
+                                    <stop offset="40%" stop-color="#94a3b8" />
+                                    <stop offset="70%" stop-color="#334155" />
+                                    <stop offset="100%" stop-color="#0f172a" />
+                                </linearGradient>
+                            </defs>
+                            <polygon points="50,2 96,24 82,90 50,113 18,90 4,24" fill="url(#shieldChromeNav)"
+                                stroke="#00f0ff" stroke-width="2.5" />
+                            <polygon points="50,14 84,31 73,82 50,100 27,82 16,31" fill="#06080d"
+                                stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+                            <path d="M40 36 H56 Q66 36 66 47 Q66 54 59 56 Q68 59 68 70 Q68 82 55 82 H40 Z"
+                                fill="#e2e8f0" />
+                            <circle cx="50" cy="59" r="16" fill="none" stroke="#00f0ff" stroke-width="2"
+                                stroke-dasharray="3 3" />
+                            <line x1="50" y1="39" x2="50" y2="79" stroke="#00f0ff" stroke-width="1.5" />
+                            <line x1="30" y1="59" x2="70" y2="59" stroke="#00f0ff" stroke-width="1.5" />
+                            <circle cx="50" cy="59" r="3.5" fill="#00f0ff" />
+                        </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <span
+                            class="font-cinzel text-xl font-black tracking-widest text-metallic-chrome">BLACKSHIELD</span>
+                        <span class="text-[9px] uppercase tracking-[0.25em] text-cyanGlow/80 font-mono">Cyber & Web
+                            Studio</span>
+                    </div>
+                </a>
+
+                <!-- Enlaces Principales -->
+                <nav
+                    class="hidden lg:flex items-center gap-7 text-xs font-semibold uppercase tracking-wider text-slate-300">
+                    <a href="#restaurantes" data-i18n="nav_restaurants"
+                        class="text-cyanGlow hover:text-white flex items-center gap-1.5 transition-colors">
+                        <i class="fa-solid fa-utensils text-xs"></i> <span
+                            data-i18n="nav_restaurants">Restaurantes</span>
+                    </a>
+                    <a href="#servicios" data-i18n="nav_services"
+                        class="hover:text-cyanGlow transition-colors">Servicios Web</a>
+                    <a href="#catalogo" data-i18n="nav_catalog"
+                        class="hover:text-cyanGlow transition-colors">Tarifas</a>
+                    <a href="#configurador-servicios" data-i18n="nav_selector"
+                        class="hover:text-cyanGlow transition-colors">Selector</a>
+                    <a href="#calculadora" data-i18n="nav_calculator"
+                        class="hover:text-cyanGlow transition-colors">Calculadora</a>
+                    <a href="#division-hardware"
+                        class="text-cyanGlow hover:text-white flex items-center gap-1.5 transition-colors">
+                        <i class="fa-solid fa-shield-halved text-xs"></i> <span data-i18n="nav_hardware">Privacidad &
+                            Hardware</span>
+                    </a>
+                </nav>
+
+                <!-- Selector de 4 Idiomas y Contacto Seguro -->
+                <div class="flex items-center gap-2 sm:gap-3">
+
+                    <div
+                        class="flex items-center bg-slate-900/90 border border-white/10 rounded-lg p-1 text-[11px] font-mono">
+                        <button class="lang-btn px-2 py-0.5 rounded font-bold transition-all bg-cyan-500 text-black"
+                            data-lang="es">ES</button>
+                        <button
+                            class="lang-btn px-2 py-0.5 rounded font-bold transition-all text-slate-400 hover:text-white"
+                            data-lang="en">EN</button>
+                        <button
+                            class="lang-btn px-2 py-0.5 rounded font-bold transition-all text-slate-400 hover:text-white"
+                            data-lang="fr">FR</button>
+                        <button
+                            class="lang-btn px-2 py-0.5 rounded font-bold transition-all text-slate-400 hover:text-white"
+                            data-lang="ar">AR</button>
+                    </div>
+
+                    <a href="https://wa.me/34631468154" target="_blank" rel="noopener noreferrer"
+                        class="px-3 sm:px-4 py-2 text-xs font-bold rounded-lg border border-emerald-500/40 bg-emerald-950/30 text-emerald-400 hover:bg-emerald-500 hover:text-black transition-all flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span class="hidden sm:inline">WhatsApp</span>
+                    </a>
+                    <a href="https://signal.me/#eu/OhyyxQRcGy8c-kyIVEsMsp5qOD7Ro6-NN5ezLcM5uURNCnNjic9EW6qIEZL8BfaL"
+                        target="_blank" rel="noopener noreferrer"
+                        class="px-3 sm:px-4 py-2 text-xs font-bold rounded-lg border border-cyan-500/40 bg-cyan-950/30 text-cyan-300 hover:bg-cyanGlow hover:text-black transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-comment-dots text-sm"></i>
+                        <span class="hidden sm:inline">Signal</span>
+                    </a>
+                </div>
+
+            </div>
+        </header>
+
+
+        <!-- HERO SECTION -->
+        <section
+            class="relative pt-16 pb-20 md:pt-28 md:pb-32 flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+
+            <!-- Insignia Superior -->
+            <div
+                class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/20 text-cyan-300 text-xs font-mono mb-8 tracking-widest uppercase">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                <span data-i18n="hero_badge">Sistemas de Alta Disponibilidad & Blindaje Digital</span>
+            </div>
+
+            <!-- Gran Emblema Central Táctico Stealth (Titanio Facetado + HUD Reticle) -->
+            <div class="w-40 h-44 sm:w-48 sm:h-52 mb-8 relative flex items-center justify-center animate-float-subtle">
+                <svg viewBox="0 0 100 115" class="w-full h-full filter drop-shadow-[0_0_35px_rgba(0,240,255,0.35)]">
+                    <defs>
+                        <linearGradient id="shieldMainTitanium" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ffffff" />
+                            <stop offset="25%" stop-color="#94a3b8" />
+                            <stop offset="55%" stop-color="#1e293b" />
+                            <stop offset="85%" stop-color="#0f172a" />
+                            <stop offset="100%" stop-color="#020617" />
+                        </linearGradient>
+                        <linearGradient id="cyanHUDGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00f0ff" />
+                            <stop offset="100%" stop-color="#0066ff" />
+                        </linearGradient>
+                    </defs>
+                    <polygon points="50,2 96,24 82,90 50,113 18,90 4,24" fill="url(#shieldMainTitanium)"
+                        stroke="#38bdf8" stroke-width="2.2" />
+                    <polygon points="50,13 86,30 74,83 50,102 26,83 14,30" fill="#05070c"
+                        stroke="rgba(255,255,255,0.15)" stroke-width="1.8" />
+                    <path
+                        d="M38 34 H57 Q68 34 68 47 Q68 54 60 57 Q71 61 71 72 Q71 84 56 84 H38 Z M47 43 V53 H56 Q60 53 60 48 Q60 43 56 43 Z M47 62 V75 H57 Q62 75 62 68 Q62 62 57 62 Z"
+                        fill="#f8fafc" />
+                    <circle cx="50" cy="59" r="18" fill="none" stroke="url(#cyanHUDGrad)" stroke-width="2"
+                        stroke-dasharray="4 4" />
+                    <line x1="50" y1="36" x2="50" y2="82" stroke="#00f0ff" stroke-width="1.8" />
+                    <line x1="27" y1="59" x2="73" y2="59" stroke="#00f0ff" stroke-width="1.8" />
+                    <circle cx="50" cy="59" r="4" fill="#00f0ff" />
+                    <circle cx="50" cy="59" r="1.5" fill="#ffffff" />
+                </svg>
+            </div>
+
+            <!-- Título de la Marca -->
+            <h1
+                class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-black tracking-widest text-metallic-chrome mb-4">
+                BLACKSHIELD
+            </h1>
+            <p data-i18n="hero_subtitle"
+                class="text-sm sm:text-base md:text-lg font-mono uppercase tracking-[0.3em] text-slate-400 max-w-3xl mb-12">
+                Ingeniería Web para Restaurantes, Automatizaciones & Privacidad en Móviles
+            </p>
+
+            <!-- Los 2 Botones de Elección Rápida Principales -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5 w-full max-w-xl">
+                <a href="#restaurantes"
+                    class="w-full sm:w-1/2 py-4 px-6 rounded-xl btn-chrome-primary flex items-center justify-center gap-3 font-semibold text-sm uppercase tracking-wider group text-white">
+                    <i class="fa-solid fa-utensils text-cyanGlow group-hover:scale-110 transition-transform"></i>
+                    <span data-i18n="btn_restaurant_services">Servicios para Restaurantes</span>
+                </a>
+
+                <a href="#division-hardware"
+                    class="w-full sm:w-1/2 py-4 px-6 rounded-xl border border-cyan-500/40 bg-cyan-950/20 text-cyan-300 hover:bg-cyan-500 hover:text-black transition-all flex items-center justify-center gap-3 font-semibold text-sm uppercase tracking-wider group shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+                    <i class="fa-solid fa-mobile-screen-button group-hover:scale-110 transition-transform"></i>
+                    <span data-i18n="btn_privacy_hardware">Privacidad en Móviles & Hardware</span>
+                </a>
+            </div>
+
+        </section>
+
+
+        <!-- SECCIÓN DESTACADA: SOLUCIONES PARA RESTAURANTES Y HOSTELERÍA -->
+        <section id="restaurantes" class="py-20 px-4 max-w-7xl mx-auto w-full border-t border-cyan-500/20">
+            <div class="text-center mb-16">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-500/40 bg-cyan-950/20 text-cyan-300 text-[10px] font-mono tracking-widest uppercase mb-4">
+                    <i class="fa-solid fa-bell-concierge"></i> <span data-i18n="rest_badge">Hostelería & Gastronomía
+                        Digital</span>
+                </div>
+                <h2 data-i18n="rest_title"
+                    class="font-cinzel text-3xl sm:text-5xl font-black text-metallic-chrome mb-3">SERVICIOS & PRECIOS
+                    PARA RESTAURANTES</h2>
+                <div class="w-28 h-1 bg-gradient-to-r from-transparent via-cyanGlow to-transparent mx-auto mb-4"></div>
+                <p data-i18n="rest_subtitle" class="text-slate-400 font-mono text-xs sm:text-sm max-w-3xl mx-auto">
+                    Sistemas propios sin comisiones abusivas por reserva ni plataformas intermediarias: cartas
+                    interactivas ultrarrápidas, captación local de clientes y blindaje de reputación.
+                </p>
+            </div>
+
+            <!-- Grid de Soluciones para Restaurantes -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+
+                <!-- Tarjeta 1: Carta Digital QR -->
+                <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center text-cyanGlow text-xl mb-5">
+                            <i class="fa-solid fa-qrcode"></i>
+                        </div>
+                        <h3 data-i18n="rest_qr_title" class="font-cinzel text-lg font-bold text-slate-100 mb-2">Carta
+                            Digital QR Interactiva</h3>
+                        <p data-i18n="rest_qr_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Carga instantánea en menos de 0.5s sin descargar PDFs pesados. Gestión ágil de alérgenos,
+                            fotos en alta resolución y actualización de precios sin costes extra.
+                        </p>
+                    </div>
+                    <span data-i18n="price_from_qr" class="text-xs font-mono text-cyanGlow">Desde 290 €</span>
+                </div>
+
+                <!-- Tarjeta 2: Web & Reservas Sin Comisiones -->
+                <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center text-cyanGlow text-xl mb-5">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <h3 data-i18n="rest_booking_title" class="font-cinzel text-lg font-bold text-slate-100 mb-2">Web
+                            & Reservas Directas</h3>
+                        <p data-i18n="rest_booking_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Sistema propio integrado con confirmaciones inmediatas por WhatsApp/Email. Ahorra las
+                            comisiones del 2€-4€ por comensal de plataformas externas.
+                        </p>
+                    </div>
+                    <span data-i18n="price_from_booking" class="text-xs font-mono text-cyanGlow">Desde 490 €</span>
+                </div>
+
+                <!-- Tarjeta 3: Reseñas & Reputación Google Maps -->
+                <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center text-cyanGlow text-xl mb-5">
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <h3 data-i18n="rest_reviews_title" class="font-cinzel text-lg font-bold text-slate-100 mb-2">
+                            Automatización de Reseñas Maps</h3>
+                        <p data-i18n="rest_reviews_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Tarjetas tácticas NFC/QR de mesa para captar opiniones de 5 estrellas en Google Maps con
+                            filtro inteligente que desvía incidencias antes de publicarse.
+                        </p>
+                    </div>
+                    <span data-i18n="price_from_reviews" class="text-xs font-mono text-cyanGlow">Desde 150 €</span>
+                </div>
+
+                <!-- Tarjeta 4: Google Ads Local para Restaurantes -->
+                <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center text-cyanGlow text-xl mb-5">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <h3 data-i18n="rest_ads_title" class="font-cinzel text-lg font-bold text-slate-100 mb-2">Google
+                            Ads Local Hostelería</h3>
+                        <p data-i18n="rest_ads_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Campañas geolocalizadas enfocadas en búsquedas de alta intención ("dónde comer hoy",
+                            "restaurantes cerca de mí", cenas de fin de semana).
+                        </p>
+                    </div>
+                    <span data-i18n="price_from_rest_ads" class="text-xs font-mono text-cyanGlow">Desde 150 €</span>
+                </div>
+
+            </div>
+
+            <!-- Pack Completo Restaurante & Cuota Mensual -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Tarjeta Oferta Pack Completo Restaurante -->
+                <div
+                    class="lg:col-span-2 glass-stealth p-8 rounded-3xl border-2 border-cyan-500/60 relative flex flex-col sm:flex-row justify-between items-center gap-6 shadow-[0_0_30px_rgba(0,240,255,0.15)]">
+                    <div class="space-y-3">
+                        <span class="text-xs font-mono uppercase tracking-widest text-cyanGlow"
+                            data-i18n="rest_pack_badge">Solución All-in-One</span>
+                        <h3 class="font-cinzel text-2xl font-bold text-white" data-i18n="rest_pack_title">Pack
+                            Restaurante Completo</h3>
+                        <p class="text-xs text-slate-300 max-w-md" data-i18n="rest_pack_desc">
+                            Web a medida + Carta QR interactiva + Motor de reservas sin comisiones + Optimización Google
+                            Maps + Tarjeta NFC para reseñas.
+                        </p>
+                        <div class="flex items-baseline gap-3 pt-2">
+                            <span class="text-sm font-mono line-through text-slate-500">1.190 €</span>
+                            <span class="text-3xl font-black font-mono text-white">890 €</span>
+                            <span class="text-xs font-normal text-slate-400" data-i18n="one_time_payment">pago
+                                único</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/34631468154?text=Hola%20BlackShield,%20me%20interesa%20el%20Pack%20Restaurante%20Completo%20de%20890€"
+                        target="_blank" rel="noopener noreferrer"
+                        class="w-full sm:w-auto px-8 py-4 rounded-xl bg-cyanGlow hover:bg-white text-black font-black text-xs text-center uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)]">
+                        <span data-i18n="btn_order_rest_pack">Solicitar Pack 890 €</span>
+                    </a>
+                </div>
+
+                <!-- Mantenimiento de Menú & Carta -->
+                <div class="glass-stealth-card p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest"
+                            data-i18n="rest_maint_badge">Gestión Continua</span>
+                        <h4 class="font-cinzel text-lg font-bold text-white mt-1 mb-2" data-i18n="rest_maint_title">
+                            Mantenimiento de Carta & Menús</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4" data-i18n="rest_maint_desc">
+                            Cambios de platos, modificación de precios de temporada, soporte técnico y copias de
+                            seguridad de reservas.
+                        </p>
+                    </div>
+                    <div class="flex items-baseline justify-between pt-4 border-t border-white/5">
+                        <span class="text-2xl font-black font-mono text-white">59 € <span
+                                class="text-xs font-normal text-slate-500 font-sans" data-i18n="per_month">/
+                                mes</span></span>
+                        <a href="https://wa.me/34631468154?text=Hola%20BlackShield,%20deseo%20activar%20el%20mantenimiento%20de%20carta%20para%20restaurantes%20(59€/mes)"
+                            target="_blank" rel="noopener noreferrer"
+                            class="px-4 py-2 rounded-lg border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500 hover:text-black font-bold text-[10px] uppercase transition-all">
+                            <span data-i18n="btn_activate">Activar</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- SECCIÓN 1: SERVICIOS DIGITALES -->
+        <section id="servicios" class="py-20 px-4 max-w-7xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 data-i18n="services_title"
+                    class="font-cinzel text-3xl sm:text-4xl font-bold text-metallic-chrome mb-3">SERVICIOS DE INGENIERÍA
+                    DIGITAL</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-cyanGlow to-transparent mx-auto mb-4"></div>
+                <p data-i18n="services_subtitle" class="text-slate-400 font-mono text-sm max-w-2xl mx-auto">
+                    Arquitectura sin dependencias innecesarias, velocidad extrema de carga y adquisición directa de
+                    clientes.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center text-cyanGlow text-xl mb-5">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h3 data-i18n="srv_web_title" class="font-cinzel text-lg font-bold text-slate-100 mb-2">
+                            Desarrollo Web & Landing</h3>
+                        <p data-i18n="srv_web_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Sitios web construidos en código limpio, Next.js, React o HTML/Tailwind. Despliegue en red
+                            Edge global con tiempos de carga inferiores a 0.8s.
+                        </p>
+                    </div>
+                    <span data-i18n="price_from_web" class="text-xs font-mono text-cyanGlow">Desde 390 €</span>
+                </div>
+
+                <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center text-cyanGlow text-xl mb-5">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3 data-i18n="srv_ads_title" class="font-cinzel text-lg font-bold text-slate-100 mb-2">
+                            Publicidad & Google Ads</h3>
+                        <p data-i18n="srv_ads_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Campañas de búsqueda orientadas a clientes con intención de compra real. Configuración de
+                            conversiones en GA4 y optimización continua.
+                        </p>
+                    </div>
+                    <span data-i18n="price_from_ads" class="text-xs font-mono text-cyanGlow">Desde 150 €</span>
+                </div>
+
+                <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center text-cyanGlow text-xl mb-5">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <h3 data-i18n="srv_auto_title" class="font-cinzel text-lg font-bold text-slate-100 mb-2">
+                            Automatización n8n & APIs</h3>
+                        <p data-i18n="srv_auto_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Conexión de formularios con WhatsApp, bots de Telegram y CRMs para responder al cliente de
+                            forma automatizada e instantánea.
+                        </p>
+                    </div>
+                    <span data-i18n="price_from_auto" class="text-xs font-mono text-cyanGlow">Desde 190 €</span>
+                </div>
+
+                <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-12 h-12 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center text-cyanGlow text-xl mb-5">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h3 data-i18n="srv_sec_title" class="font-cinzel text-lg font-bold text-slate-100 mb-2">
+                            Hardening & Rendimiento</h3>
+                        <p data-i18n="srv_sec_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                            Certificados SSL de última generación, cabeceras HSTS blindadas y auditoría de seguridad
+                            para eliminar vulnerabilidades.
+                        </p>
+                    </div>
+                    <span data-i18n="price_from_sec" class="text-xs font-mono text-cyanGlow">Desde 150 €</span>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- SECCIÓN 2: CATÁLOGO DE TARIFAS -->
+        <section id="catalogo" class="py-20 px-4 max-w-7xl mx-auto w-full">
+            <div class="text-center mb-16">
+                <h2 data-i18n="pricing_title"
+                    class="font-cinzel text-3xl sm:text-4xl font-bold text-metallic-chrome mb-3">CATÁLOGO DE TARIFAS
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-cyanGlow to-transparent mx-auto mb-4"></div>
+                <p data-i18n="pricing_subtitle" class="text-slate-400 font-mono text-sm">Precios cerrados, transparentes
+                    y sin costes ocultos de infraestructura.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+
+                <!-- Tarifa 1 -->
+                <div class="glass-stealth-card p-8 rounded-2xl border border-white/5 flex flex-col justify-between">
+                    <div>
+                        <span data-i18n="plan_1_badge"
+                            class="text-xs font-mono tracking-widest text-slate-400 uppercase">Esencial</span>
+                        <h3 data-i18n="plan_1_title" class="font-cinzel text-xl font-bold text-slate-100 mt-1 mb-4">
+                            Landing Page Express</h3>
+                        <div class="text-3xl font-black font-mono text-white mb-6">390 € <span
+                                data-i18n="one_time_payment" class="text-xs font-normal text-slate-500 font-sans">pago
+                                único</span></div>
+                        <ul class="text-xs text-slate-300 space-y-3 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_1_f1">Diseño a medida de una sola página</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_1_f2">Integración directa con WhatsApp</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_1_f3">Optimización móvil total y velocidad ultra-rápida</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_1_f4">Despliegue con SSL incluido</span></li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/34631468154" target="_blank" rel="noopener noreferrer"
+                        data-i18n="btn_hire_plan"
+                        class="w-full py-3 rounded-lg border border-white/10 hover:border-cyanGlow text-xs font-bold text-center uppercase tracking-wider transition-all">
+                        Contratar Plan
+                    </a>
+                </div>
+
+                <!-- Tarifa 2 (Destacada) -->
+                <div
+                    class="glass-stealth p-8 rounded-2xl border-2 border-cyan-500/60 relative flex flex-col justify-between shadow-[0_0_30px_rgba(0,240,255,0.15)]">
+                    <div data-i18n="popular_badge"
+                        class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-cyan-500 text-black font-black text-[10px] tracking-widest uppercase">
+                        Más Solicitado
+                    </div>
+                    <div>
+                        <span data-i18n="plan_2_badge"
+                            class="text-xs font-mono tracking-widest text-cyanGlow uppercase">Crecimiento &
+                            Ventas</span>
+                        <h3 data-i18n="plan_2_title" class="font-cinzel text-xl font-bold text-slate-100 mt-1 mb-4">Web
+                            Corporativa & Google Ads</h3>
+                        <div class="text-3xl font-black font-mono text-white mb-6">850 € <span
+                                data-i18n="one_time_payment" class="text-xs font-normal text-slate-500 font-sans">pago
+                                único</span></div>
+                        <ul class="text-xs text-slate-300 space-y-3 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_2_f1">Web completa multisección corporativa</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_2_f2">Campaña de Google Ads estructurada</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_2_f3">Medición de conversiones (GA4)</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_2_f4">Optimización de ficha Google Business</span></li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/34631468154" target="_blank" rel="noopener noreferrer"
+                        data-i18n="btn_hire_pro"
+                        class="w-full py-3 rounded-lg bg-cyanGlow hover:bg-white text-black font-black text-xs text-center uppercase tracking-wider transition-all">
+                        Solicitar Plan Pro
+                    </a>
+                </div>
+
+                <!-- Tarifa 3 -->
+                <div class="glass-stealth-card p-8 rounded-2xl border border-white/5 flex flex-col justify-between">
+                    <div>
+                        <span data-i18n="plan_3_badge"
+                            class="text-xs font-mono tracking-widest text-slate-400 uppercase">Avanzado</span>
+                        <h3 data-i18n="plan_3_title" class="font-cinzel text-xl font-bold text-slate-100 mt-1 mb-4">
+                            Suite Integral & Automatizaciones</h3>
+                        <div class="text-3xl font-black font-mono text-white mb-6">1.450 € <span
+                                data-i18n="one_time_payment" class="text-xs font-normal text-slate-500 font-sans">pago
+                                único</span></div>
+                        <ul class="text-xs text-slate-300 space-y-3 mb-8">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_3_f1">Arquitectura Next.js / React fullstack</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_3_f2">Workflows en n8n conectados a CRM</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_3_f3">Auditoría completa de seguridad</span></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyanGlow"></i> <span
+                                    data-i18n="plan_3_f4">Soporte prioritario 30 días</span></li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/34631468154" target="_blank" rel="noopener noreferrer"
+                        data-i18n="btn_hire_suite"
+                        class="w-full py-3 rounded-lg border border-white/10 hover:border-cyanGlow text-xs font-bold text-center uppercase tracking-wider transition-all">
+                        Contratar Suite
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Mantenimiento Mensual -->
+            <div
+                class="glass-stealth p-6 rounded-2xl border border-white/5 max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-around gap-6 text-center sm:text-left">
+                <div>
+                    <span data-i18n="retainer_badge" class="text-xs font-mono text-cyanGlow uppercase">Retainers
+                        Mensuales</span>
+                    <h4 data-i18n="retainer_title" class="font-cinzel text-lg font-bold text-white">Mantenimiento Web &
+                        Blindaje</h4>
+                    <p data-i18n="retainer_desc" class="text-xs text-slate-400">Backups automáticos, soporte técnico y
+                        actualizaciones de seguridad continuas.</p>
+                </div>
+                <div class="text-2xl font-black font-mono text-white">79 € <span data-i18n="per_month"
+                        class="text-xs text-slate-500 font-sans">/ mes</span></div>
+            </div>
+        </section>
+
+
+        <!-- SECCIÓN 3: SELECTOR DINÁMICO DE SERVICIOS -->
+        <section id="configurador-servicios" class="py-20 px-4 max-w-5xl mx-auto w-full">
+            <div class="glass-stealth p-8 sm:p-12 rounded-3xl border border-white/10">
+
+                <div class="text-center mb-10">
+                    <h2 data-i18n="selector_title" class="font-cinzel text-3xl font-bold text-metallic-chrome mb-2">CREA
+                        TU COMBINACIÓN DE SERVICIOS</h2>
+                    <p data-i18n="selector_subtitle" class="text-xs sm:text-sm text-slate-400 font-mono">Selecciona los
+                        módulos que necesita tu negocio y obtén el presupuesto instantáneo.</p>
+                </div>
+
+                <!-- Lista de Casillas de Verificación de Servicios -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+
+                    <label
+                        class="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox"
+                                class="service-checkbox w-4 h-4 rounded accent-cyan-400 cursor-pointer" data-price="290"
+                                data-name="Carta Digital QR Interactiva">
+                            <span data-i18n="chk_rest_qr" class="text-xs font-medium text-slate-200">Carta Digital QR
+                                para Restaurantes</span>
+                        </div>
+                        <span class="text-xs font-mono text-cyanGlow">+290 €</span>
+                    </label>
+
+                    <label
+                        class="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox"
+                                class="service-checkbox w-4 h-4 rounded accent-cyan-400 cursor-pointer" data-price="490"
+                                data-name="Sistema de Reservas sin Comisiones">
+                            <span data-i18n="chk_rest_booking" class="text-xs font-medium text-slate-200">Sistema
+                                Reservas Directas Hostelería</span>
+                        </div>
+                        <span class="text-xs font-mono text-cyanGlow">+490 €</span>
+                    </label>
+
+                    <label
+                        class="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox"
+                                class="service-checkbox w-4 h-4 rounded accent-cyan-400 cursor-pointer" data-price="390"
+                                data-name="Landing Page Express" checked>
+                            <span data-i18n="chk_landing" class="text-xs font-medium text-slate-200">Landing Page de
+                                Alto Rendimiento</span>
+                        </div>
+                        <span class="text-xs font-mono text-cyanGlow">+390 €</span>
+                    </label>
+
+                    <label
+                        class="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox"
+                                class="service-checkbox w-4 h-4 rounded accent-cyan-400 cursor-pointer" data-price="460"
+                                data-name="Ampliación Corporativa">
+                            <span data-i18n="chk_corp" class="text-xs font-medium text-slate-200">Ampliación
+                                Multisección Corporativa</span>
+                        </div>
+                        <span class="text-xs font-mono text-cyanGlow">+460 €</span>
+                    </label>
+
+                    <label
+                        class="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox"
+                                class="service-checkbox w-4 h-4 rounded accent-cyan-400 cursor-pointer" data-price="150"
+                                data-name="Setup Google Ads">
+                            <span data-i18n="chk_ads" class="text-xs font-medium text-slate-200">Setup Campaña Google
+                                Ads & GA4</span>
+                        </div>
+                        <span class="text-xs font-mono text-cyanGlow">+150 €</span>
+                    </label>
+
+                    <label
+                        class="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox"
+                                class="service-checkbox w-4 h-4 rounded accent-cyan-400 cursor-pointer" data-price="190"
+                                data-name="Automatización n8n">
+                            <span data-i18n="chk_n8n" class="text-xs font-medium text-slate-200">Automatización n8n con
+                                WhatsApp</span>
+                        </div>
+                        <span class="text-xs font-mono text-cyanGlow">+190 €</span>
+                    </label>
+
+                    <label
+                        class="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox"
+                                class="service-checkbox w-4 h-4 rounded accent-cyan-400 cursor-pointer" data-price="150"
+                                data-name="Blindaje CDN">
+                            <span data-i18n="chk_sec" class="text-xs font-medium text-slate-200">Blindaje de
+                                Ciberseguridad & CDN</span>
+                        </div>
+                        <span class="text-xs font-mono text-cyanGlow">+150 €</span>
+                    </label>
+
+                    <label
+                        class="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox"
+                                class="service-checkbox w-4 h-4 rounded accent-cyan-400 cursor-pointer" data-price="79"
+                                data-monthly="true" data-name="Mantenimiento Mensual">
+                            <span data-i18n="chk_maint" class="text-xs font-medium text-slate-200">Mantenimiento y
+                                Soporte Continuo</span>
+                        </div>
+                        <span class="text-xs font-mono text-emerald-400">+79 €/mes</span>
+                    </label>
+
+                    <label
+                        class="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox"
+                                class="service-checkbox w-4 h-4 rounded accent-cyan-400 cursor-pointer" data-price="59"
+                                data-monthly="true" data-name="Mantenimiento Carta & Menú">
+                            <span data-i18n="chk_rest_maint" class="text-xs font-medium text-slate-200">Mantenimiento de
+                                Carta & Menús</span>
+                        </div>
+                        <span class="text-xs font-mono text-emerald-400">+59 €/mes</span>
+                    </label>
+
+                </div>
+
+                <!-- Total Dinámico -->
+                <div
+                    class="p-6 rounded-2xl bg-slate-950/70 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <div>
+                        <div data-i18n="estimated_investment" class="text-xs font-mono text-slate-400 uppercase">
+                            Inversión Estimada:</div>
+                        <div class="text-3xl font-black font-mono text-white mt-1">
+                            <span id="selected-total">390</span> €
+                            <span id="selected-monthly-wrap" class="text-sm font-normal text-emerald-400 hidden"> +
+                                <span id="selected-monthly">0</span> €/mes</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <a id="btn-order-services-wa" href="https://wa.me/34631468154" target="_blank"
+                            rel="noopener noreferrer"
+                            class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-500 hover:bg-white text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span data-i18n="btn_send_wa">Enviar a WhatsApp</span>
+                        </a>
+                        <a href="https://signal.me/#eu/OhyyxQRcGy8c-kyIVEsMsp5qOD7Ro6-NN5ezLcM5uURNCnNjic9EW6qIEZL8BfaL"
+                            target="_blank" rel="noopener noreferrer"
+                            class="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyanGlow hover:bg-white text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-comment-dots text-sm"></i>
+                            <span data-i18n="btn_signal_channel">Canal Signal</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- SECCIÓN 4: CALCULADORA RÁPIDA DE TIEMPOS -->
+        <section id="calculadora" class="py-20 px-4 max-w-4xl mx-auto w-full">
+            <div class="glass-stealth p-8 sm:p-10 rounded-3xl border border-white/10 text-center">
+                <h2 data-i18n="calc_title" class="font-cinzel text-2xl sm:text-3xl font-bold text-metallic-chrome mb-3">
+                    CALCULADORA DE PLAZOS Y ALCANCE</h2>
+                <p data-i18n="calc_subtitle" class="text-xs font-mono text-slate-400 mb-8">Elige el tipo de desarrollo
+                    base y el ritmo de entrega prioritario.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left mb-8">
+                    <div>
+                        <label data-i18n="calc_type_label"
+                            class="block text-xs font-mono uppercase text-slate-300 mb-2">Tipo de Proyecto Base:</label>
+                        <select id="calc-base-type"
+                            class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyanGlow">
+                            <option value="290" data-i18n="opt_type_qr">Carta Digital QR Interactiva (290 €)</option>
+                            <option value="890" data-i18n="opt_type_rest_pack">Pack Completo Restaurante (890 €)
+                            </option>
+                            <option value="390" data-i18n="opt_type_landing">Landing Page de Conversión (390 €)</option>
+                            <option value="850" data-i18n="opt_type_corp">Web Corporativa Multi-Página (850 €)</option>
+                            <option value="1450" data-i18n="opt_type_next">Aplicación Next.js / React a Medida (1.450 €)
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label data-i18n="calc_speed_label"
+                            class="block text-xs font-mono uppercase text-slate-300 mb-2">Ritmo de Despliegue:</label>
+                        <select id="calc-speed"
+                            class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-cyanGlow">
+                            <option value="0" data-i18n="opt_speed_standard">Estándar (5 - 7 días laborables)</option>
+                            <option value="150" data-i18n="opt_speed_fast">Express Prioritario (48 - 72 horas) (+150 €)
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div
+                    class="p-6 rounded-2xl bg-black/60 border border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-left">
+                        <span data-i18n="calc_est_total" class="text-xs font-mono text-slate-400">Total Proyecto
+                            Estimado:</span>
+                        <div class="text-2xl font-black font-mono text-cyanGlow mt-0.5"><span
+                                id="calc-result">390</span> €</div>
+                    </div>
+                    <a id="btn-calc-wa" href="https://wa.me/34631468154" target="_blank" rel="noopener noreferrer"
+                        data-i18n="btn_calc_wa"
+                        class="px-6 py-3 rounded-lg border border-cyanGlow text-cyanGlow hover:bg-cyanGlow hover:text-black font-bold text-xs uppercase tracking-wider transition-all">
+                        Solicitar con este plazo
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECCIÓN 5: PRIVACIDAD & HARDWARE (ABAJO DEL TODO) -->
+        <section id="division-hardware" class="py-24 px-4 max-w-7xl mx-auto w-full border-t border-cyan-500/20">
+
+            <div class="text-center mb-16">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-500/40 bg-cyan-950/20 text-cyan-300 text-[10px] font-mono tracking-widest uppercase mb-4">
+                    <i class="fa-solid fa-microchip"></i> <span data-i18n="hw_badge">Hardware Modificado &
+                        Zero-Trust</span>
+                </div>
+                <h2 data-i18n="hw_title" class="font-cinzel text-3xl sm:text-5xl font-black text-metallic-chrome mb-3">
+                    SMARTPHONES BLINDADOS & PRIVACIDAD</h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-cyanGlow to-transparent mx-auto mb-4"></div>
+                <p data-i18n="hw_subtitle" class="text-slate-400 font-mono text-xs sm:text-sm max-w-3xl mx-auto">
+                    Dispositivos configurados desde el silicio: Google Pixel con GrapheneOS e iPhones desvinculados de
+                    servicios en la nube con modo de aislamiento reforzado.
+                </p>
+            </div>
+
+            <!-- Pestañas de Ecosistema -->
+            <div class="flex items-center justify-center gap-4 mb-12">
+                <button id="tab-pixel"
+                    class="px-6 py-2.5 rounded-xl border border-cyanGlow bg-cyanGlow text-black font-black text-xs uppercase tracking-wider transition-all">
+                    <i class="fa-brands fa-android mr-1"></i> Google Pixel + GrapheneOS
+                </button>
+                <button id="tab-iphone"
+                    class="px-6 py-2.5 rounded-xl border border-white/10 bg-slate-900/60 text-slate-300 hover:border-cyanGlow font-bold text-xs uppercase tracking-wider transition-all">
+                    <i class="fa-brands fa-apple mr-1"></i> Apple iPhone Blindado
+                </button>
+            </div>
+
+            <!-- Configurador Terminales -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-20">
+
+                <!-- Renderizado Silueta SVG Adaptativa -->
+                <div
+                    class="lg:col-span-5 glass-stealth p-8 rounded-3xl border border-white/10 flex flex-col items-center justify-center relative overflow-hidden">
+
+                    <div class="text-center mb-6">
+                        <span id="phone-brand-tag"
+                            class="text-[10px] font-mono uppercase tracking-widest text-cyanGlow">GrapheneOS
+                            Verified</span>
+                        <h3 id="phone-display-name" class="font-cinzel text-2xl font-bold text-white mt-0.5">Google
+                            Pixel 6</h3>
+                    </div>
+
+                    <div class="w-56 h-[400px] relative flex items-center justify-center transition-all duration-500">
+                        <svg viewBox="0 0 200 400"
+                            class="w-full h-full filter drop-shadow-[0_0_25px_rgba(0,240,255,0.2)]">
+                            <rect x="10" y="10" width="180" height="380" rx="36" fill="#090c12" stroke="#475569"
+                                stroke-width="3" />
+                            <rect x="20" y="22" width="160" height="356" rx="26" fill="#020305" stroke="#1e293b"
+                                stroke-width="1.5" />
+
+                            <!-- Visor Pixel -->
+                            <g id="pixel-visor-group">
+                                <rect x="10" y="70" width="180" height="42" fill="#111827" stroke="#334155"
+                                    stroke-width="1.5" opacity="0.6" />
+                                <circle cx="55" cy="91" r="10" fill="#020617" stroke="#00f0ff" stroke-width="1.5" />
+                                <circle cx="85" cy="91" r="8" fill="#020617" stroke="#38bdf8" stroke-width="1.5" />
+                                <circle cx="145" cy="91" r="5" fill="#facc15" opacity="0.8" />
+                            </g>
+
+                            <!-- Cámara iPhone -->
+                            <g id="iphone-camera-group" class="hidden">
+                                <rect x="22" y="28" width="55" height="55" rx="14" fill="#0f172a" stroke="#475569"
+                                    stroke-width="1.5" />
+                                <circle cx="38" cy="44" r="8" fill="#020617" stroke="#94a3b8" stroke-width="1.5" />
+                                <circle cx="38" cy="68" r="8" fill="#020617" stroke="#94a3b8" stroke-width="1.5" />
+                                <circle cx="60" cy="56" r="8" fill="#020617" stroke="#94a3b8" stroke-width="1.5" />
+                                <rect x="75" y="30" width="50" height="12" rx="6" fill="#000000" stroke="#334155"
+                                    stroke-width="1" />
+                            </g>
+
+                            <!-- Logo GrapheneOS -->
+                            <g id="screen-graphene-logo" class="opacity-90">
+                                <polygon points="100,230 120,242 120,266 100,278 80,266 80,242" fill="none"
+                                    stroke="#00f0ff" stroke-width="2" />
+                                <circle cx="100" cy="254" r="5" fill="#00f0ff" />
+                                <text x="100" y="305" font-size="10" font-family="monospace" fill="#94a3b8"
+                                    text-anchor="middle" letter-spacing="2">GRAPHENE OS</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="mt-6 flex items-center gap-2 text-xs font-mono text-slate-400">
+                        <i class="fa-solid fa-lock text-cyanGlow"></i>
+                        <span id="phone-security-chip">Titan M2 Security Chip</span>
+                    </div>
+                </div>
+
+                <!-- Opciones y Add-ons -->
+                <div
+                    class="lg:col-span-7 glass-stealth p-8 rounded-3xl border border-white/10 flex flex-col justify-between">
+
+                    <div>
+                        <h4 data-i18n="step_1_model"
+                            class="text-xs font-mono uppercase tracking-widest text-slate-400 mb-4">1. Selecciona el
+                            Modelo:</h4>
+
+                        <!-- Grid Pixels -->
+                        <div id="models-pixel-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-cyanGlow bg-cyan-950/40 text-left transition-all"
+                                data-name="Google Pixel 6" data-price="350" data-original="650"
+                                data-chip="Titan M2 Security Chip" data-type="pixel">
+                                <div class="text-[10px] font-mono text-cyanGlow">OFERTA</div>
+                                <div class="text-xs font-bold text-white">Pixel 6</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">650 €</div>
+                                <div class="text-sm font-black font-mono text-cyanGlow">350 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="Google Pixel 7" data-price="390" data-original="690"
+                                data-chip="Titan M2 Security Chip" data-type="pixel">
+                                <div class="text-[10px] font-mono text-cyanGlow">OFERTA</div>
+                                <div class="text-xs font-bold text-white">Pixel 7</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">690 €</div>
+                                <div class="text-sm font-black font-mono text-white">390 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="Google Pixel 7a" data-price="450" data-original="750"
+                                data-chip="Titan M2 Security Chip" data-type="pixel">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">Pixel 7a</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">750 €</div>
+                                <div class="text-sm font-black font-mono text-white">450 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="Google Pixel 8" data-price="650" data-original="950"
+                                data-chip="Titan M2 Security Chip" data-type="pixel">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">Pixel 8</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">950 €</div>
+                                <div class="text-sm font-black font-mono text-white">650 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="Google Pixel 8 Pro" data-price="840" data-original="1140"
+                                data-chip="Titan M2 Security Chip" data-type="pixel">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">Pixel 8 Pro</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.140 €</div>
+                                <div class="text-sm font-black font-mono text-white">840 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="Google Pixel 9" data-price="890" data-original="1190"
+                                data-chip="Titan M2 + Tensor G4" data-type="pixel">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">Pixel 9</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.190 €</div>
+                                <div class="text-sm font-black font-mono text-white">890 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="Google Pixel 9 Pro" data-price="1090" data-original="1390"
+                                data-chip="Titan M2 + Tensor G4" data-type="pixel">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">Pixel 9 Pro</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.390 €</div>
+                                <div class="text-sm font-black font-mono text-white">1.090 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="Google Pixel 9 Pro XL" data-price="1190" data-original="1490"
+                                data-chip="Titan M2 + Tensor G4" data-type="pixel">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">Pixel 9 Pro XL</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.490 €</div>
+                                <div class="text-sm font-black font-mono text-white">1.190 €</div>
+                            </button>
+                        </div>
+
+                        <!-- Grid iPhones -->
+                        <div id="models-iphone-grid" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="iPhone 15 Pro" data-price="950" data-original="1250"
+                                data-chip="Apple Secure Enclave A17" data-type="iphone">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">15 Pro</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.250 €</div>
+                                <div class="text-sm font-black font-mono text-white">950 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="iPhone 15 Pro Max" data-price="1080" data-original="1380"
+                                data-chip="Apple Secure Enclave A17" data-type="iphone">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">15 Pro Max</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.380 €</div>
+                                <div class="text-sm font-black font-mono text-white">1.080 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="iPhone 16 Pro" data-price="1190" data-original="1490"
+                                data-chip="Apple Secure Enclave A18" data-type="iphone">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">16 Pro</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.490 €</div>
+                                <div class="text-sm font-black font-mono text-white">1.190 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="iPhone 16 Pro Max" data-price="1350" data-original="1650"
+                                data-chip="Apple Secure Enclave A18" data-type="iphone">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">16 Pro Max</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.650 €</div>
+                                <div class="text-sm font-black font-mono text-white">1.350 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="iPhone 17 Pro" data-price="1390" data-original="1690"
+                                data-chip="Apple Secure Enclave A19" data-type="iphone">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">17 Pro</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.690 €</div>
+                                <div class="text-sm font-black font-mono text-white">1.390 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="iPhone 17 Pro Max" data-price="1520" data-original="1820"
+                                data-chip="Apple Secure Enclave A19" data-type="iphone">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">17 Pro Max</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.820 €</div>
+                                <div class="text-sm font-black font-mono text-white">1.520 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="iPhone 18 Pro" data-price="1650" data-original="1950"
+                                data-chip="Apple Secure Enclave A20" data-type="iphone">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">18 Pro</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">1.950 €</div>
+                                <div class="text-sm font-black font-mono text-white">1.650 €</div>
+                            </button>
+
+                            <button
+                                class="model-select-btn p-3 rounded-xl border border-white/5 bg-slate-900/40 text-left hover:border-cyanGlow transition-all"
+                                data-name="iPhone 18 Pro Max" data-price="1790" data-original="2090"
+                                data-chip="Apple Secure Enclave A20" data-type="iphone">
+                                <div class="text-[10px] font-mono text-slate-400">-300 €</div>
+                                <div class="text-xs font-bold text-white">18 Pro Max</div>
+                                <div class="text-xs font-mono mt-1 text-slate-400 line-through">2.090 €</div>
+                                <div class="text-sm font-black font-mono text-white">1.790 €</div>
+                            </button>
+                        </div>
+
+                        <!-- Extras Hardware -->
+                        <h4 data-i18n="step_2_addons"
+                            class="text-xs font-mono uppercase tracking-widest text-slate-400 mb-4">2. Blindaje &
+                            Accesorios Opcionales:</h4>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                            <label
+                                class="flex items-center justify-between p-3 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer text-xs">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="phone-addon-checkbox w-4 h-4 rounded accent-cyan-400"
+                                        data-price="35" data-name="Cristal Privacidad 28°">
+                                    <span data-i18n="addon_filter" class="text-slate-300">Cristal Filtro Anti-Espía
+                                        28°</span>
+                                </div>
+                                <span class="font-mono text-cyanGlow">+35 €</span>
+                            </label>
+
+                            <label
+                                class="flex items-center justify-between p-3 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer text-xs">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="phone-addon-checkbox w-4 h-4 rounded accent-cyan-400"
+                                        data-price="65" data-name="Mullvad VPN 1 Año">
+                                    <span data-i18n="addon_vpn" class="text-slate-300">VPN Privada Multi-Hop (1
+                                        Año)</span>
+                                </div>
+                                <span class="font-mono text-cyanGlow">+65 €</span>
+                            </label>
+
+                            <label
+                                class="flex items-center justify-between p-3 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer text-xs">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="phone-addon-checkbox w-4 h-4 rounded accent-cyan-400"
+                                        data-price="45" data-name="Funda Blindaje RF">
+                                    <span data-i18n="addon_case" class="text-slate-300">Funda Táctica Bloqueo
+                                        Señal</span>
+                                </div>
+                                <span class="font-mono text-cyanGlow">+45 €</span>
+                            </label>
+
+                            <label
+                                class="flex items-center justify-between p-3 rounded-xl border border-white/5 bg-slate-950/40 hover:border-cyanGlow/40 cursor-pointer text-xs">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="phone-addon-checkbox w-4 h-4 rounded accent-cyan-400"
+                                        data-price="50" data-name="Perfiles Sandboxed">
+                                    <span data-i18n="addon_sandbox" class="text-slate-300">Aislamiento Sandboxed
+                                        Zero-Cloud</span>
+                                </div>
+                                <span class="font-mono text-cyanGlow">+50 €</span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <!-- Total Terminal -->
+                    <div
+                        class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                        <div>
+                            <div data-i18n="total_device_price" class="text-[10px] font-mono text-slate-400 uppercase">
+                                Total Terminal Configurado:</div>
+                            <div class="flex items-baseline gap-3 mt-0.5">
+                                <span id="phone-original-strike"
+                                    class="text-base font-mono line-through text-slate-500">650 €</span>
+                                <span class="text-3xl font-black font-mono text-white"><span
+                                        id="phone-final-price">350</span> €</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
+                            <a id="btn-order-phone-wa" href="https://wa.me/34631468154" target="_blank"
+                                rel="noopener noreferrer"
+                                class="w-full sm:w-auto px-5 py-3 rounded-xl bg-emerald-500 hover:bg-white text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                                <span data-i18n="btn_order_wa">Pedir por WhatsApp</span>
+                            </a>
+                            <a href="https://signal.me/#eu/OhyyxQRcGy8c-kyIVEsMsp5qOD7Ro6-NN5ezLcM5uURNCnNjic9EW6qIEZL8BfaL"
+                                target="_blank" rel="noopener noreferrer"
+                                class="w-full sm:w-auto px-5 py-3 rounded-xl bg-cyanGlow hover:bg-white text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-solid fa-comment-dots text-sm"></i>
+                                <span data-i18n="btn_order_signal">Pedir por Signal</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERRAMIENTAS FÍSICAS -->
+            <div class="mt-20">
+                <div class="text-center mb-12">
+                    <h3 data-i18n="hw_tools_title"
+                        class="font-cinzel text-2xl sm:text-3xl font-bold text-metallic-chrome mb-2">HERRAMIENTAS
+                        FÍSICAS DE PRIVACIDAD</h3>
+                    <p data-i18n="hw_tools_subtitle" class="text-xs font-mono text-slate-400">Tokens criptográficos,
+                        sistemas amnésicos en RAM y jaulas de blindaje electromagnético.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <!-- YubiKey -->
+                    <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-full h-28 flex items-center justify-center mb-4">
+                                <svg viewBox="0 0 100 140" class="h-full">
+                                    <rect x="25" y="40" width="50" height="85" rx="8" fill="#111827" stroke="#475569"
+                                        stroke-width="2" />
+                                    <circle cx="50" cy="55" r="10" fill="none" stroke="#e2e8f0" stroke-width="2" />
+                                    <circle cx="50" cy="90" r="14" fill="#020617" stroke="#facc15" stroke-width="3" />
+                                    <rect x="35" y="10" width="30" height="30" rx="3" fill="#334155" stroke="#94a3b8"
+                                        stroke-width="1.5" />
+                                    <line x1="42" y1="18" x2="42" y2="30" stroke="#facc15" stroke-width="2" />
+                                    <line x1="58" y1="18" x2="58" y2="30" stroke="#facc15" stroke-width="2" />
+                                </svg>
+                            </div>
+                            <h4 class="font-cinzel text-base font-bold text-white mb-1">YubiKey 5C NFC</h4>
+                            <p data-i18n="tool_yubikey_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                                Llave física FIDO2/WebAuthn inviolable frente a phishing. Doble interfaz USB-C y NFC
+                                para proteger cuentas bancarias y servidores.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-4">
+                                <span class="text-xs font-mono line-through text-slate-500">385 €</span>
+                                <span class="text-xl font-black font-mono text-white">85 €</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="https://wa.me/34631468154?text=Hola%20BlackShield,%20quiero%20la%20YubiKey%205C%20NFC%20de%2085€"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="w-1/2 py-2.5 rounded-lg border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-black font-bold text-[10px] text-center uppercase transition-all">WhatsApp</a>
+                                <a href="https://signal.me/#eu/OhyyxQRcGy8c-kyIVEsMsp5qOD7Ro6-NN5ezLcM5uURNCnNjic9EW6qIEZL8BfaL"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="w-1/2 py-2.5 rounded-lg border border-cyan-500/30 text-cyan-300 hover:bg-cyanGlow hover:text-black font-bold text-[10px] text-center uppercase transition-all">Signal</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tails OS -->
+                    <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-full h-28 flex items-center justify-center mb-4">
+                                <svg viewBox="0 0 100 140" class="h-full">
+                                    <rect x="30" y="45" width="40" height="75" rx="6" fill="#0f172a" stroke="#475569"
+                                        stroke-width="2" />
+                                    <rect x="37" y="15" width="26" height="30" fill="#334155" stroke="#94a3b8"
+                                        stroke-width="1.5" />
+                                    <circle cx="50" cy="80" r="10" fill="none" stroke="#9333ea" stroke-width="2" />
+                                    <line x1="50" y1="70" x2="50" y2="90" stroke="#a855f7" stroke-width="2" />
+                                    <text x="50" y="105" font-size="8" font-family="monospace" fill="#c084fc"
+                                        text-anchor="middle">TAILS OS</text>
+                                </svg>
+                            </div>
+                            <h4 class="font-cinzel text-base font-bold text-white mb-1">USB Tails OS Amnésico</h4>
+                            <p data-i18n="tool_tails_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                                Sistema operativo en RAM que enruta el 100% de la red por Tor. Al apagar el ordenador no
+                                deja ningún rastro forense. Con persistencia LUKS.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-4">
+                                <span class="text-xs font-mono line-through text-slate-500">365 €</span>
+                                <span class="text-xl font-black font-mono text-white">65 €</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="https://wa.me/34631468154?text=Hola%20BlackShield,%20quiero%20el%20USB%20Tails%20OS%20de%2065€"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="w-1/2 py-2.5 rounded-lg border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-black font-bold text-[10px] text-center uppercase transition-all">WhatsApp</a>
+                                <a href="https://signal.me/#eu/OhyyxQRcGy8c-kyIVEsMsp5qOD7Ro6-NN5ezLcM5uURNCnNjic9EW6qIEZL8BfaL"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="w-1/2 py-2.5 rounded-lg border border-cyan-500/30 text-cyan-300 hover:bg-cyanGlow hover:text-black font-bold text-[10px] text-center uppercase transition-all">Signal</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bolsa Faraday -->
+                    <div class="glass-stealth-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="w-full h-28 flex items-center justify-center mb-4">
+                                <svg viewBox="0 0 100 140" class="h-full">
+                                    <path d="M20 30 L80 30 L75 125 L25 125 Z" fill="#090d16" stroke="#475569"
+                                        stroke-width="2" />
+                                    <path d="M15 25 L85 25 L80 40 L20 40 Z" fill="#1e293b" stroke="#64748b"
+                                        stroke-width="1.5" />
+                                    <circle cx="50" cy="75" r="16" fill="none" stroke="#ef4444" stroke-width="1.5"
+                                        stroke-dasharray="3 3" />
+                                    <line x1="38" y1="63" x2="62" y2="87" stroke="#ef4444" stroke-width="2" />
+                                    <text x="50" y="105" font-size="7" font-family="monospace" fill="#94a3b8"
+                                        text-anchor="middle">RF 100dB BLOCK</text>
+                                </svg>
+                            </div>
+                            <h4 class="font-cinzel text-base font-bold text-white mb-1">Bolsa Faraday RF</h4>
+                            <p data-i18n="tool_faraday_desc" class="text-xs text-slate-400 leading-relaxed mb-4">
+                                Aislamiento electromagnético absoluto: bloquea al instante antenas 5G, 4G, WiFi,
+                                Bluetooth, RFID y localización por satélite GPS.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex items-baseline gap-2 mb-4">
+                                <span class="text-xs font-mono line-through text-slate-500">345 €</span>
+                                <span class="text-xl font-black font-mono text-white">45 €</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="https://wa.me/34631468154?text=Hola%20BlackShield,%20quiero%20la%20Bolsa%20Faraday%20de%2045€"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="w-1/2 py-2.5 rounded-lg border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-black font-bold text-[10px] text-center uppercase transition-all">WhatsApp</a>
+                                <a href="https://signal.me/#eu/OhyyxQRcGy8c-kyIVEsMsp5qOD7Ro6-NN5ezLcM5uURNCnNjic9EW6qIEZL8BfaL"
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="w-1/2 py-2.5 rounded-lg border border-cyan-500/30 text-cyan-300 hover:bg-cyanGlow hover:text-black font-bold text-[10px] text-center uppercase transition-all">Signal</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- SECCIÓN 6: CONTACTO OFICIAL -->
+        <section id="contacto" class="py-20 px-4 max-w-4xl mx-auto w-full text-center">
+            <div class="glass-stealth p-10 sm:p-14 rounded-3xl border border-white/10">
+
+                <h2 data-i18n="contact_title"
+                    class="font-cinzel text-3xl sm:text-4xl font-bold text-metallic-chrome mb-3">CANALES DE COMUNICACIÓN
+                </h2>
+                <p data-i18n="contact_subtitle"
+                    class="text-xs sm:text-sm font-mono text-slate-400 max-w-xl mx-auto mb-10">
+                    Inicia tu consulta directamente a través de mensajería instantánea. Sin recopilación de datos ni
+                    intermediarios.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-xl mx-auto">
+
+                    <a href="https://wa.me/34631468154" target="_blank" rel="noopener noreferrer"
+                        class="p-6 rounded-2xl border border-emerald-500/30 bg-emerald-950/20 hover:bg-emerald-500 hover:text-black transition-all flex flex-col items-center group">
+                        <i
+                            class="fa-brands fa-whatsapp text-3xl text-emerald-400 group-hover:text-black mb-3 transition-colors"></i>
+                        <span class="font-cinzel font-bold text-sm">WhatsApp</span>
+                        <span data-i18n="badge_quick_response"
+                            class="text-[10px] font-mono text-slate-400 group-hover:text-black/80 mt-1">Respuesta
+                            Rápida</span>
+                    </a>
+
+                    <a href="https://signal.me/#eu/OhyyxQRcGy8c-kyIVEsMsp5qOD7Ro6-NN5ezLcM5uURNCnNjic9EW6qIEZL8BfaL"
+                        target="_blank" rel="noopener noreferrer"
+                        class="p-6 rounded-2xl border border-cyan-500/30 bg-cyan-950/20 hover:bg-cyanGlow hover:text-black transition-all flex flex-col items-center group">
+                        <i
+                            class="fa-solid fa-comment-dots text-3xl text-cyanGlow group-hover:text-black mb-3 transition-colors"></i>
+                        <span class="font-cinzel font-bold text-sm">Signal Oficial</span>
+                        <span data-i18n="badge_e2ee"
+                            class="text-[10px] font-mono text-slate-400 group-hover:text-black/80 mt-1">Cifrado Militar
+                            de Extremo a Extremo</span>
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="mt-auto border-t border-white/5 py-10 px-4 glass-stealth text-center">
+            <div
+                class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+                <div class="flex items-center gap-2">
+                    <span class="font-cinzel font-bold text-slate-300">BLACKSHIELD</span>
+                    <span>&copy; 2026. <span data-i18n="rights_reserved">Todos los derechos reservados.</span></span>
+                </div>
+                <div data-i18n="footer_claim" class="text-[11px] text-slate-400">
+                    Ingeniería Web, Automatizaciones & Ciberdefensa
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+
+    <!-- MOTOR MULTILINGÜE Y LÓGICA INTERACTIVA -->
+    <script>
+        // 1. Diccionario Multilingüe Completo (ES, EN, FR, AR)
+        const translations = {
+            es: {
+                nav_restaurants: "Restaurantes",
+                nav_services: "Servicios",
+                nav_catalog: "Catálogo Precios",
+                nav_selector: "Selector",
+                nav_calculator: "Calculadora",
+                nav_hardware: "Privacidad & Hardware",
+                hero_badge: "Sistemas de Alta Disponibilidad & Blindaje Digital",
+                hero_subtitle: "Ingeniería Web para Restaurantes, Automatizaciones & Privacidad en Móviles",
+                btn_restaurant_services: "Servicios para Restaurantes",
+                btn_privacy_hardware: "Privacidad en Móviles & Hardware",
+                rest_badge: "Hostelería & Gastronomía Digital",
+                rest_title: "SERVICIOS & PRECIOS PARA RESTAURANTES",
+                rest_subtitle: "Sistemas propios sin comisiones abusivas por reserva ni plataformas intermediarias: cartas interactivas ultrarrápidas, captación local de clientes y blindaje de reputación.",
+                rest_qr_title: "Carta Digital QR Interactiva",
+                rest_qr_desc: "Carga instantánea en menos de 0.5s sin descargar PDFs pesados. Gestión ágil de alérgenos, fotos en alta resolución y actualización de precios sin costes extra.",
+                price_from_qr: "Desde 290 €",
+                rest_booking_title: "Web & Reservas Directas",
+                rest_booking_desc: "Sistema propio integrado con confirmaciones inmediatas por WhatsApp/Email. Ahorra las comisiones del 2€-4€ por comensal de plataformas externas.",
+                price_from_booking: "Desde 490 €",
+                rest_reviews_title: "Automatización de Reseñas Maps",
+                rest_reviews_desc: "Tarjetas tácticas NFC/QR de mesa para captar opiniones de 5 estrellas en Google Maps con filtro inteligente que desvía incidencias antes de publicarse.",
+                price_from_reviews: "Desde 150 €",
+                rest_ads_title: "Google Ads Local Hostelería",
+                rest_ads_desc: "Campañas geolocalizadas enfocadas en búsquedas de alta intención ('dónde comer hoy', 'restaurantes cerca de mí', cenas de fin de semana).",
+                price_from_rest_ads: "Desde 150 €",
+                rest_pack_badge: "Solución All-in-One",
+                rest_pack_title: "Pack Restaurante Completo",
+                rest_pack_desc: "Web a medida + Carta QR interactiva + Motor de reservas sin comisiones + Optimización Google Maps + Tarjeta NFC para reseñas.",
+                btn_order_rest_pack: "Solicitar Pack 890 €",
+                rest_maint_badge: "Gestión Continua",
+                rest_maint_title: "Mantenimiento de Carta & Menús",
+                rest_maint_desc: "Cambios de platos, modificación de precios de temporada, soporte técnico y copias de seguridad de reservas.",
+                btn_activate: "Activar",
+                chk_rest_qr: "Carta Digital QR para Restaurantes",
+                chk_rest_booking: "Sistema Reservas Directas Hostelería",
+                chk_rest_maint: "Mantenimiento de Carta & Menús",
+                opt_type_qr: "Carta Digital QR Interactiva (290 €)",
+                opt_type_rest_pack: "Pack Completo Restaurante (890 €)",
+                services_title: "SERVICIOS DE INGENIERÍA DIGITAL",
+                services_subtitle: "Arquitectura sin dependencias innecesarias, velocidad extrema de carga y adquisición directa de clientes.",
+                srv_web_title: "Desarrollo Web & Landing",
+                srv_web_desc: "Sitios web construidos en código limpio, Next.js, React o HTML/Tailwind. Despliegue en red Edge global con tiempos de carga inferiores a 0.8s.",
+                price_from_web: "Desde 390 €",
+                srv_ads_title: "Publicidad & Google Ads",
+                srv_ads_desc: "Campañas de búsqueda orientadas a clientes con intención de compra real. Configuración de conversiones en GA4 y optimización continua.",
+                price_from_ads: "Desde 150 €",
+                srv_auto_title: "Automatización n8n & APIs",
+                srv_auto_desc: "Conexión de formularios con WhatsApp, bots de Telegram y CRMs para responder al cliente de forma automatizada e instantánea.",
+                price_from_auto: "Desde 190 €",
+                srv_sec_title: "Hardening & Rendimiento",
+                srv_sec_desc: "Certificados SSL de última generación, cabeceras HSTS blindadas y auditoría de seguridad para eliminar vulnerabilidades.",
+                price_from_sec: "Desde 150 €",
+                pricing_title: "CATÁLOGO DE TARIFAS",
+                pricing_subtitle: "Precios cerrados, transparentes y sin costes ocultos de infraestructura.",
+                plan_1_badge: "Esencial",
+                plan_1_title: "Landing Page Express",
+                one_time_payment: "pago único",
+                plan_1_f1: "Diseño a medida de una sola página",
+                plan_1_f2: "Integración directa con WhatsApp",
+                plan_1_f3: "Optimización móvil total y velocidad ultra-rápida",
+                plan_1_f4: "Despliegue con SSL incluido",
+                btn_hire_plan: "Contratar Plan",
+                popular_badge: "Más Solicitado",
+                plan_2_badge: "Crecimiento & Ventas",
+                plan_2_title: "Web Corporativa & Google Ads",
+                plan_2_f1: "Web completa multisección corporativa",
+                plan_2_f2: "Campaña de Google Ads estructurada",
+                plan_2_f3: "Medición de conversiones (GA4)",
+                plan_2_f4: "Optimización de ficha Google Business",
+                btn_hire_pro: "Solicitar Plan Pro",
+                plan_3_badge: "Avanzado",
+                plan_3_title: "Suite Integral & Automatizaciones",
+                plan_3_f1: "Arquitectura Next.js / React fullstack",
+                plan_3_f2: "Workflows en n8n conectados a CRM",
+                plan_3_f3: "Auditoría completa de seguridad",
+                plan_3_f4: "Soporte prioritario 30 días",
+                btn_hire_suite: "Contratar Suite",
+                retainer_badge: "Retainers Mensuales",
+                retainer_title: "Mantenimiento Web & Blindaje",
+                retainer_desc: "Backups automáticos, soporte técnico y actualizaciones de seguridad continuas.",
+                per_month: "/ mes",
+                selector_title: "CREA TU COMBINACIÓN DE SERVICIOS",
+                selector_subtitle: "Selecciona los módulos que necesita tu negocio y obtén el presupuesto instantáneo.",
+                chk_landing: "Landing Page de Alto Rendimiento",
+                chk_corp: "Ampliación Multisección Corporativa",
+                chk_ads: "Setup Campaña Google Ads & GA4",
+                chk_n8n: "Automatización n8n con WhatsApp",
+                chk_sec: "Blindaje de Ciberseguridad & CDN",
+                chk_maint: "Mantenimiento y Soporte Continuo",
+                estimated_investment: "Inversión Estimada:",
+                btn_send_wa: "Enviar a WhatsApp",
+                btn_signal_channel: "Canal Signal",
+                calc_title: "CALCULADORA DE PLAZOS Y ALCANCE",
+                calc_subtitle: "Elige el tipo de desarrollo base y el ritmo de entrega prioritario.",
+                calc_type_label: "Tipo de Proyecto Base:",
+                opt_type_landing: "Landing Page de Conversión (390 €)",
+                opt_type_corp: "Web Corporativa Multi-Página (850 €)",
+                opt_type_next: "Aplicación Next.js / React a Medida (1.450 €)",
+                calc_speed_label: "Ritmo de Despliegue:",
+                opt_speed_standard: "Estándar (5 - 7 días laborables)",
+                opt_speed_fast: "Express Prioritario (48 - 72 horas) (+150 €)",
+                calc_est_total: "Total Proyecto Estimado:",
+                btn_calc_wa: "Solicitar con este plazo",
+                hw_badge: "Hardware Modificado & Zero-Trust",
+                hw_title: "SMARTPHONES BLINDADOS & PRIVACIDAD",
+                hw_subtitle: "Dispositivos configurados desde el silicio: Google Pixel con GrapheneOS e iPhones desvinculados de servicios en la nube con modo de aislamiento reforzado.",
+                step_1_model: "1. Selecciona el Modelo:",
+                step_2_addons: "2. Blindaje & Accesorios Opcionales:",
+                addon_filter: "Cristal Filtro Anti-Espía 28°",
+                addon_vpn: "VPN Privada Multi-Hop (1 Año)",
+                addon_case: "Funda Táctica Bloqueo Señal",
+                addon_sandbox: "Aislamiento Sandboxed Zero-Cloud",
+                total_device_price: "Total Terminal Configurado:",
+                btn_order_wa: "Pedir por WhatsApp",
+                btn_order_signal: "Pedir por Signal",
+                hw_tools_title: "HERRAMIENTAS FÍSICAS DE PRIVACIDAD",
+                hw_tools_subtitle: "Tokens criptográficos, sistemas amnésicos en RAM y jaulas de blindaje electromagnético.",
+                tool_yubikey_desc: "Llave física FIDO2/WebAuthn inviolable frente a phishing. Doble interfaz USB-C y NFC para proteger cuentas bancarias y servidores.",
+                tool_tails_desc: "Sistema operativo en RAM que enruta el 100% de la red por Tor. Al apagar el ordenador no deja ningún rastro forense. Con persistencia LUKS.",
+                tool_faraday_desc: "Aislamiento electromagnético absoluto: bloquea al instante antenas 5G, 4G, WiFi, Bluetooth, RFID y localización por satélite GPS.",
+                contact_title: "CANALES DE COMUNICACIÓN",
+                contact_subtitle: "Inicia tu consulta directamente a través de mensajería instantánea. Sin recopilación de datos ni intermediarios.",
+                badge_quick_response: "Respuesta Rápida",
+                badge_e2ee: "Cifrado Militar de Extremo a Extremo",
+                rights_reserved: "Todos los derechos reservados.",
+                footer_claim: "Ingeniería Web, Automatizaciones & Ciberdefensa"
+            },
+            en: {
+                nav_restaurants: "Restaurants",
+                nav_services: "Web Services",
+                nav_catalog: "Pricing Catalog",
+                nav_selector: "Selector",
+                nav_calculator: "Calculator",
+                nav_hardware: "Privacy & Hardware",
+                hero_badge: "High-Availability Systems & Digital Hardening",
+                hero_subtitle: "Web Engineering for Restaurants, Automation & Mobile Privacy",
+                btn_restaurant_services: "Restaurant Services",
+                btn_privacy_hardware: "Mobile Privacy & Hardware",
+                rest_badge: "Digital Hospitality & Dining",
+                rest_title: "RESTAURANT SERVICES & PRICING",
+                rest_subtitle: "Direct booking and menu infrastructure without 3rd-party commissions: lightning-fast interactive menus, local guest acquisition, and automated review management.",
+                rest_qr_title: "Interactive QR Digital Menu",
+                rest_qr_desc: "Instant loading in under 0.5s without heavy PDFs. Allergen tags, high-resolution imagery, and immediate price modifications.",
+                price_from_qr: "From €290",
+                rest_booking_title: "Web & Direct Reservations",
+                rest_booking_desc: "Custom booking engine with automatic WhatsApp/Email confirmations. Save the €2-€4 fee per diner taken by external platforms.",
+                price_from_booking: "From €490",
+                rest_reviews_title: "Google Maps Review Automation",
+                rest_reviews_desc: "Tactical NFC/QR table cards to trigger 5-star Google Maps reviews with smart routing to address dissatisfaction before public posting.",
+                price_from_reviews: "From €150",
+                rest_ads_title: "Local Restaurant Google Ads",
+                rest_ads_desc: "Geofenced search campaigns capturing immediate dinner intent ('best restaurants near me', 'table tonight').",
+                price_from_rest_ads: "From €150",
+                rest_pack_badge: "All-in-One Solution",
+                rest_pack_title: "Complete Restaurant Pack",
+                rest_pack_desc: "Custom Web + Interactive QR Menu + Commission-Free Booking Engine + Google Maps Setup + NFC Table Review Card.",
+                btn_order_rest_pack: "Get Restaurant Pack €890",
+                rest_maint_badge: "Continuous Retainer",
+                rest_maint_title: "Menu & Pricing Maintenance",
+                rest_maint_desc: "Dish updates, seasonal price changes, technical support, and backup archiving.",
+                btn_activate: "Activate",
+                chk_rest_qr: "Restaurant Interactive QR Menu",
+                chk_rest_booking: "Direct Hospitality Booking Engine",
+                chk_rest_maint: "Menu & Pricing Maintenance",
+                opt_type_qr: "Interactive QR Digital Menu (€290)",
+                opt_type_rest_pack: "Complete Restaurant Pack (€890)",
+                services_title: "DIGITAL ENGINEERING SERVICES",
+                services_subtitle: "Zero bloat architecture, ultra-fast load times and direct client acquisition.",
+                srv_web_title: "Web & Landing Development",
+                srv_web_desc: "Built with clean code, Next.js, React or HTML/Tailwind. Global Edge deployment with sub-0.8s load times.",
+                price_from_web: "From €390",
+                srv_ads_title: "Google Ads & Acquisition",
+                srv_ads_desc: "High-intent search campaigns. End-to-end GA4 conversion tracking and continuous optimization.",
+                price_from_ads: "From €150",
+                srv_auto_title: "n8n Automation & APIs",
+                srv_auto_desc: "Connect forms to WhatsApp, Telegram bots and CRMs to instantly respond to clients without friction.",
+                price_from_auto: "From €190",
+                srv_sec_title: "Hardening & Performance",
+                srv_sec_desc: "Next-gen SSL certificates, hardened HSTS headers and comprehensive security audits.",
+                price_from_sec: "From €150",
+                pricing_title: "PRICING CATALOG",
+                pricing_subtitle: "Fixed, transparent prices with no hidden infrastructure fees.",
+                plan_1_badge: "Essential",
+                plan_1_title: "Express Landing Page",
+                one_time_payment: "one-time",
+                plan_1_f1: "Custom single-page high-converting design",
+                plan_1_f2: "Direct WhatsApp & form integration",
+                plan_1_f3: "Full mobile optimization and extreme speed",
+                plan_1_f4: "Global Edge deployment with SSL included",
+                btn_hire_plan: "Get Started",
+                popular_badge: "Most Popular",
+                plan_2_badge: "Growth & Sales",
+                plan_2_title: "Corporate Web & Google Ads",
+                plan_2_f1: "Full multi-section corporate platform",
+                plan_2_f2: "Structured Google Ads campaign setup",
+                plan_2_f3: "GA4 advanced conversion measurement",
+                plan_2_f4: "Google Business Profile optimization",
+                btn_hire_pro: "Request Pro Plan",
+                plan_3_badge: "Advanced",
+                plan_3_title: "Enterprise Suite & Automation",
+                plan_3_f1: "Next.js / React fullstack architecture",
+                plan_3_f2: "Custom n8n workflows wired to CRM",
+                plan_3_f3: "Complete security & vulnerability audit",
+                plan_3_f4: "30 days priority technical support",
+                btn_hire_suite: "Get Full Suite",
+                retainer_badge: "Monthly Retainers",
+                retainer_title: "Web Maintenance & Shielding",
+                retainer_desc: "Automated backups, continuous monitoring and real-time security patches.",
+                per_month: "/ month",
+                selector_title: "CUSTOMIZE YOUR SERVICE STACK",
+                selector_subtitle: "Select the modules your business needs and get an instant quote.",
+                chk_landing: "High-Performance Landing Page",
+                chk_corp: "Multi-Section Corporate Expansion",
+                chk_ads: "Google Ads & GA4 Setup",
+                chk_n8n: "n8n WhatsApp Automation Flow",
+                chk_sec: "Cybersecurity & CDN Shielding",
+                chk_maint: "Continuous Maintenance & Support",
+                estimated_investment: "Estimated Investment:",
+                btn_send_wa: "Send via WhatsApp",
+                btn_signal_channel: "Signal Channel",
+                calc_title: "TIMELINE & SCOPE CALCULATOR",
+                calc_subtitle: "Choose your base architecture and desired deployment turnaround.",
+                calc_type_label: "Base Project Type:",
+                opt_type_landing: "High-Converting Landing Page (€390)",
+                opt_type_corp: "Multi-Page Corporate Platform (€850)",
+                opt_type_next: "Custom Next.js / React Application (€1,450)",
+                calc_speed_label: "Deployment Speed:",
+                opt_speed_standard: "Standard (5 - 7 business days)",
+                opt_speed_fast: "Express Priority (48 - 72 hours) (+€150)",
+                calc_est_total: "Estimated Project Total:",
+                btn_calc_wa: "Request with this timeline",
+                hw_badge: "Zero-Trust & Hardened Hardware",
+                hw_title: "SECURED SMARTPHONES & PRIVACY",
+                hw_subtitle: "Silicon-level privacy: Google Pixel with GrapheneOS and iCloud-decoupled iPhones in reinforced Lockdown Mode.",
+                step_1_model: "1. Select Device Model:",
+                step_2_addons: "2. Optional Hardening & Accessories:",
+                addon_filter: "28° Anti-Spy Privacy Glass",
+                addon_vpn: "Multi-Hop Private VPN (1 Year)",
+                addon_case: "Tactical Signal-Blocking Sleeve",
+                addon_sandbox: "Zero-Cloud Sandboxed Isolation",
+                total_device_price: "Total Device Price:",
+                btn_order_wa: "Order via WhatsApp",
+                btn_order_signal: "Order via Signal",
+                hw_tools_title: "PHYSICAL PRIVACY ARSENAL",
+                hw_tools_subtitle: "Hardware cryptographic tokens, RAM amnesic operating systems and RF Faraday cages.",
+                tool_yubikey_desc: "Hardware FIDO2/WebAuthn key immune to phishing. Dual USB-C and NFC to safeguard accounts and servers.",
+                tool_tails_desc: "Live RAM OS routing 100% of traffic through Tor. Leaves zero forensic trace upon shutdown. LUKS persistence enabled.",
+                tool_faraday_desc: "Absolute RF shielding: immediately cuts 5G, 4G, WiFi, Bluetooth, RFID and GPS satellite tracking.",
+                contact_title: "COMMUNICATION CHANNELS",
+                contact_subtitle: "Reach out directly via secure messaging. Zero data harvesting or cold outreach.",
+                badge_quick_response: "Fast Response",
+                badge_e2ee: "Military-Grade End-to-End Encryption",
+                rights_reserved: "All rights reserved.",
+                footer_claim: "Web Engineering, Automation & Cyber Defense"
+            },
+            fr: {
+                nav_restaurants: "Restaurants",
+                nav_services: "Services Web",
+                nav_catalog: "Tarifs",
+                nav_selector: "Configurateur",
+                nav_calculator: "Calculateur",
+                nav_hardware: "Confidentialité & Matériel",
+                hero_badge: "Systèmes Haute Disponibilité & Blindage Numérique",
+                hero_subtitle: "Ingénierie Web pour Restaurants, Automatisation & Confidentialité Mobile",
+                btn_restaurant_services: "Services pour Restaurants",
+                btn_privacy_hardware: "Confidentialité Mobile & Matériel",
+                rest_badge: "Hôtellerie & Gastronomie Numérique",
+                rest_title: "SERVICES & TARIFS RESTAURATION",
+                rest_subtitle: "Solutions directes sans commissions d'intermédiaires : cartes QR ultrarapides, réservations en direct et gestion proactive des avis.",
+                rest_qr_title: "Carte Menu QR Interactive",
+                rest_qr_desc: "Ouverture instantanée en moins de 0,5s sans PDF lourds. Gestion des allergènes, photos HD et mise à jour des prix.",
+                price_from_qr: "À partir de 290 €",
+                rest_booking_title: "Site Web & Réservations Directes",
+                rest_booking_desc: "Moteur de réservation intégré avec confirmation WhatsApp/Email. Éliminez les commissions par couvert.",
+                price_from_booking: "À partir de 490 €",
+                rest_reviews_title: "Automatisation Avis Google Maps",
+                rest_reviews_desc: "Cartes de table tactiques NFC/QR pour récolter des avis 5 étoiles avec filtre préventif des insatisfactions.",
+                price_from_reviews: "À partir de 150 €",
+                rest_ads_title: "Google Ads Local Restauration",
+                rest_ads_desc: "Campagnes ciblées sur les requêtes immédiates ('où manger ce soir', 'restaurants à proximité').",
+                price_from_rest_ads: "À partir de 150 €",
+                rest_pack_badge: "Solution Complète",
+                rest_pack_title: "Pack Restaurant Complet",
+                rest_pack_desc: "Site sur-mesure + Carte QR + Module de réservation + Fiche Google Maps + Carte NFC pour avis.",
+                btn_order_rest_pack: "Commander Pack 890 €",
+                rest_maint_badge: "Gestion Continue",
+                rest_maint_title: "Maintenance Menus & Tarifs",
+                rest_maint_desc: "Mises à jour des plats, tarifs saisonniers, support technique et sauvegardes.",
+                btn_activate: "Activer",
+                chk_rest_qr: "Carte Digitale QR Restaurant",
+                chk_rest_booking: "Système Réservations Directes",
+                chk_rest_maint: "Maintenance Menus & Plats",
+                opt_type_qr: "Carte Digitale QR Interactive (290 €)",
+                opt_type_rest_pack: "Pack Restaurant Complet (890 €)",
+                services_title: "SERVICES D'INGÉNIERIE NUMÉRIQUE",
+                services_subtitle: "Architecture sans dépendances inutiles, vitesse extrême et acquisition directe.",
+                srv_web_title: "Développement Web & Landing",
+                srv_web_desc: "Sites conçus en code propre, Next.js, React ou HTML/Tailwind. Déploiement Edge global avec temps de chargement inférieur à 0,8 s.",
+                price_from_web: "À partir de 390 €",
+                srv_ads_title: "Publicité Google Ads",
+                srv_ads_desc: "Campagnes de recherche à forte intention d'achat. Suivi complet des conversions GA4 et optimisation continue.",
+                price_from_ads: "À partir de 150 €",
+                srv_auto_title: "Automatisation n8n & APIs",
+                srv_auto_desc: "Liaison directe de formulaires avec WhatsApp, Telegram et CRMs pour répondre immédiatement aux clients.",
+                price_from_auto: "À partir de 190 €",
+                srv_sec_title: "Sécurisation & Performance",
+                srv_sec_desc: "Certificats SSL de pointe, en-têtes HSTS renforcés et audit approfondi de sécurité.",
+                price_from_sec: "À partir de 150 €",
+                pricing_title: "GRILLE TARIFAIRE",
+                pricing_subtitle: "Prix fixes, transparents et sans frais d'infrastructure dissimulés.",
+                plan_1_badge: "Essentiel",
+                plan_1_title: "Landing Page Express",
+                one_time_payment: "paiement unique",
+                plan_1_f1: "Design sur-mesure d'une seule page",
+                plan_1_f2: "Intégration directe WhatsApp",
+                plan_1_f3: "Optimisation mobile et vitesse ultra-rapide",
+                plan_1_f4: "Déploiement avec SSL inclus",
+                btn_hire_plan: "Souscrire",
+                popular_badge: "Plus Demandé",
+                plan_2_badge: "Croissance & Ventes",
+                plan_2_title: "Site Entreprise & Google Ads",
+                plan_2_f1: "Plateforme multi-sections complète",
+                plan_2_f2: "Configuration Google Ads structurée",
+                plan_2_f3: "Mesure avancée des conversions (GA4)",
+                plan_2_f4: "Optimisation profil Google Business",
+                btn_hire_pro: "Choisir le Plan Pro",
+                plan_3_badge: "Avancé",
+                plan_3_title: "Suite Intégrale & n8n",
+                plan_3_f1: "Architecture Next.js / React fullstack",
+                plan_3_f2: "Flux n8n connectés à votre CRM",
+                plan_3_f3: "Audit de sécurité et vulnérabilités",
+                plan_3_f4: "Support prioritaire 30 jours",
+                btn_hire_suite: "Choisir la Suite",
+                retainer_badge: "Abonnements Mensuels",
+                retainer_title: "Maintenance Web & Protection",
+                retainer_desc: "Sauvegardes automatiques, support technique et mises à jour continues.",
+                per_month: "/ mois",
+                selector_title: "COMPOSEZ VOTRE PACK DE SERVICES",
+                selector_subtitle: "Sélectionnez vos modules et calculez votre investissement instantanément.",
+                chk_landing: "Landing Page Haute Performance",
+                chk_corp: "Extension Multipage Entreprise",
+                chk_ads: "Configuration Google Ads & GA4",
+                chk_n8n: "Flux Automatisation n8n & WhatsApp",
+                chk_sec: "Blindage Cybersécurité & CDN",
+                chk_maint: "Maintenance & Support Continu",
+                estimated_investment: "Investissement Estimé :",
+                btn_send_wa: "Envoyer par WhatsApp",
+                btn_signal_channel: "Canal Signal",
+                calc_title: "CALCULATEUR DE DÉLAIS ET PORTÉE",
+                calc_subtitle: "Choisissez votre structure de départ et le rythme de livraison.",
+                calc_type_label: "Type de Projet :",
+                opt_type_landing: "Landing Page de Conversion (390 €)",
+                opt_type_corp: "Site Entreprise Multipage (850 €)",
+                opt_type_next: "Application Next.js / React Sur Mesure (1 450 €)",
+                calc_speed_label: "Vitesse de Déploiement :",
+                opt_speed_standard: "Standard (5 - 7 jours ouvrés)",
+                opt_speed_fast: "Express Prioritaire (48 - 72 heures) (+150 €)",
+                calc_est_total: "Total Estimé du Projet :",
+                btn_calc_wa: "Commander avec ce délai",
+                hw_badge: "Matériel Modifié & Zero-Trust",
+                hw_title: "SMARTPHONES SÉCURISÉS & CONFIDENTIALITÉ",
+                hw_subtitle: "Dispositifs configurés au niveau matériel : Google Pixel avec GrapheneOS et iPhones isolés du cloud avec mode Isolement.",
+                step_1_model: "1. Choisissez le Modèle :",
+                step_2_addons: "2. Blindage & Accessoires en Option :",
+                addon_filter: "Filtre Anti-Espion 28°",
+                addon_vpn: "VPN Privé Multi-Hop (1 An)",
+                addon_case: "Pochette Tactique Faraday",
+                addon_sandbox: "Isolation Sandboxed Sans Cloud",
+                total_device_price: "Total Terminal Configuré :",
+                btn_order_wa: "Commander via WhatsApp",
+                btn_order_signal: "Commander via Signal",
+                hw_tools_title: "OUTILS PHYSIQUES DE CONFIDENTIALITÉ",
+                hw_tools_subtitle: "Clés cryptographiques, systèmes amnésiques en RAM et blindage électromagnétique.",
+                tool_yubikey_desc: "Clé physique FIDO2/WebAuthn insensible au phishing. Double interface USB-C et NFC pour sécuriser vos accès.",
+                tool_tails_desc: "Système live en RAM routant tout le trafic via Tor. Aucune trace médico-légale après extinction. Persistance LUKS.",
+                tool_faraday_desc: "Isolation RF absolue : coupe immédiatement 5G, 4G, WiFi, Bluetooth, RFID et localisation satellite GPS.",
+                contact_title: "CANAUX DE COMMUNICATION",
+                contact_subtitle: "Contactez-nous directement par messagerie chiffrée. Aucune collecte de données personnelles.",
+                badge_quick_response: "Réponse Rapide",
+                badge_e2ee: "Chiffrement Militaire de Bout en Bout",
+                rights_reserved: "Tous droits réservés.",
+                footer_claim: "Ingénierie Web, Automatisation & Cyberdéfense"
+            },
+            ar: {
+                nav_restaurants: "المطاعم",
+                nav_services: "خدمات الويب",
+                nav_catalog: "قائمة الأسعار",
+                nav_selector: "المحدد",
+                nav_calculator: "الحاسبة",
+                nav_hardware: "الخصوصية والأجهزة",
+                hero_badge: "أنظمة عالية التوفر والتحصين الرقمي",
+                hero_subtitle: "هندسة الويب للمطاعم والضيافة، الأتمتة المتقدمة وخصوصية الهواتف",
+                btn_restaurant_services: "خدمات المطاعم والضيافة",
+                btn_privacy_hardware: "خصوصية الهواتف والأجهزة",
+                rest_badge: "قطاع الضيافة والمطاعم الرقمية",
+                rest_title: "خدمات وأسعار المطاعم والضيافة",
+                rest_subtitle: "بنية مستقلة بدون عمولات الحجز المرتفعة: قوائم طعام تفاعلية فائقة السرعة، حجز مباشر، وتحصين سمعة النشاط.",
+                rest_qr_title: "قائمة طعام رقمية تفاعلية QR",
+                rest_qr_desc: "فتح فوري في أقل من 0.5 ثانية بدون تحميل ملفات PDF ثقيلة، مع توضيح مسببات الحساسية وتعديل فوري للأسعار.",
+                price_from_qr: "ابتداءً من 290 €",
+                rest_booking_title: "موقع الحجوزات المباشرة",
+                rest_booking_desc: "نظام حجوزات مستقل بدون دفع عمولات المنصات الوسيطة (2€ - 4€ لكل عميل) مع إشعارات تأكيد فورية عبر واتساب.",
+                price_from_booking: "ابتداءً من 490 €",
+                rest_reviews_title: "أتمتة تقييمات خرائط جوجل",
+                rest_reviews_desc: "بطاقات طاولة ذكية بتقنية NFC و QR لجمع التقييمات الإيجابية 5 نجوم وتوجيه أي ملاحظات سلبية للمعالجة فوراً.",
+                price_from_reviews: "ابتداءً من 150 €",
+                rest_ads_title: "إعلانات جوجل المحلية للمطاعم",
+                rest_ads_desc: "حملات جغرافية فورية تستهدف الباحثين عن وجبات الغداء والعشاء ('أفضل مطعم بالقرب مني').",
+                price_from_rest_ads: "ابتداءً من 150 €",
+                rest_pack_badge: "الباقة الشاملة",
+                rest_pack_title: "باقة المطعم المتكاملة",
+                rest_pack_desc: "موقع مخصص + قائمة QR + نظام حجوزات مباشر + تهيئة خرائط جوجل + بطاقة NFC للتقييمات.",
+                btn_order_rest_pack: "طلب باقة المطعم 890 €",
+                rest_maint_badge: "إدارة ومتابعة مستمرة",
+                rest_maint_title: "صيانة وتحديث قوائم الطعام",
+                rest_maint_desc: "تعديل الوجبات والأسعار الموسمية مع نسخ احتياطي ودعم فني دوري.",
+                btn_activate: "تفعيل",
+                chk_rest_qr: "قائمة طعام QR تفاعلية للمطاعم",
+                chk_rest_booking: "نظام حجوزات مباشرة بدون عمولات",
+                chk_rest_maint: "صيانة وتحديث قوائم الطعام",
+                opt_type_qr: "قائمة طعام QR تفاعلية (290 €)",
+                opt_type_rest_pack: "باقة المطعم المتكاملة (890 €)",
+                services_title: "خدمات الهندسة الرقمية",
+                services_subtitle: "بنية برمجية فائقة السرعة، أداء استثنائي واكتساب مباشر ومستمر للعملاء.",
+                srv_web_title: "تطوير الويب وصفحات الهبوط",
+                srv_web_desc: "مواقع مبنية بأكواد برمجية نظيفة، Next.js أو React. نشر سحابي فائق السرعة بزمن استجابة أقل من 0.8 ثانية.",
+                price_from_web: "ابتداءً من 390 €",
+                srv_ads_title: "إعلانات جوجل المركزة",
+                srv_ads_desc: "حملات إعلانية تستهدف العملاء ذوي النية الشرائية العالية مع تتبع دقيق للتحويلات عبر GA4.",
+                price_from_ads: "ابتداءً من 150 €",
+                srv_auto_title: "أتمتة العمليات عبر n8n",
+                srv_auto_desc: "ربط النماذج بواتساب وبوتات تيليجرام وأنظمة إدارة العملاء للرد الفوري بدون تدخل يدوي.",
+                price_from_auto: "ابتداءً من 190 €",
+                srv_sec_title: "التحصين الرقمي والأمان",
+                srv_sec_desc: "شهادات SSL متطورة، ترويسات HSTS مشددة وفحص أمني شامل لسد كافة الثغرات.",
+                price_from_sec: "ابتداءً من 150 €",
+                pricing_title: "باقات الأسعار",
+                pricing_subtitle: "أسعار واضحة وثابتة بدون أي رسوم خفية في البنية التحتية.",
+                plan_1_badge: "الأساسية",
+                plan_1_title: "صفحة هبوط سريعة",
+                one_time_payment: "دفعة واحدة",
+                plan_1_f1: "تصميم مخصص لصفحة واحدة لزيادة التحويلات",
+                plan_1_f2: "ربط مباشر وسلس مع واتساب",
+                plan_1_f3: "توافق كامل مع الهواتف وسرعة فائقة",
+                plan_1_f4: "استضافة عالمية آمنة مع شهادة SSL",
+                btn_hire_plan: "طلب الباقة",
+                popular_badge: "الأكثر طلباً",
+                plan_2_badge: "النمو والمبيعات",
+                plan_2_title: "موقع متكامل وإعلانات جوجل",
+                plan_2_f1: "موقع مؤسسي متكامل متعدد الأقسام",
+                plan_2_f2: "إعداد حملة احترافية على جوجل أدز",
+                plan_2_f3: "تتبع متقدم للتحويلات (GA4)",
+                plan_2_f4: "تحسين ملف الأنشطة التجارية في جوجل",
+                btn_hire_pro: "طلب باقة برو",
+                plan_3_badge: "المتقدمة",
+                plan_3_title: "الجناح الشامل والأتمتة",
+                plan_3_f1: "بنية برمجية متقدمة باستخدام Next.js / React",
+                plan_3_f2: "أتمتة شاملة عبر n8n مربوطة بأنظمة CRM",
+                plan_3_f3: "تدقيق أمني شامل للثغرات",
+                plan_3_f4: "دعم فني مخصص ذو أولوية لمدة 30 يوماً",
+                btn_hire_suite: "طلب الجناح الشامل",
+                retainer_badge: "الاشتراكات الشهرية",
+                retainer_title: "الصيانة المستمرة والحماية",
+                retainer_desc: "نسخ احتياطي تلقائي، دعم فني مستمر وتحديثات أمنية دورية.",
+                per_month: "/ شهرياً",
+                selector_title: "صمم باقة خدماتك الخاصة",
+                selector_subtitle: "اختر الوحدات التي يحتاجها نشاطك واحصل على الميزانية فوراً.",
+                chk_landing: "صفحة هبوط فائقة الأداء",
+                chk_corp: "توسيع لموقع مؤسسي متعدد الصفحات",
+                chk_ads: "إعداد حملات إعلانات جوجل وتتبع GA4",
+                chk_n8n: "أتمتة المهام وربط واتساب عبر n8n",
+                chk_sec: "تحصين أمني وشبكة توزيع المحتوى CDN",
+                chk_maint: "صيانة مستمرة ودعم فني دوري",
+                estimated_investment: "الاستثمار التقديري:",
+                btn_send_wa: "إرسال عبر واتساب",
+                btn_signal_channel: "قناة سيجنال الآمنة",
+                calc_title: "حاسبة المدة ونطاق العمل",
+                calc_subtitle: "حدد نوع المشروع الأساسي وسرعة التسليم المطلوبة.",
+                calc_type_label: "نوع المشروع الأساسي:",
+                opt_type_landing: "صفحة هبوط عالية التحويل (390 €)",
+                opt_type_corp: "موقع مؤسسي متعدد الصفحات (850 €)",
+                opt_type_next: "تطبيق مخصص بـ Next.js / React (1,450 €)",
+                calc_speed_label: "مدة الإنجاز والتسليم:",
+                opt_speed_standard: "عادي (5 - 7 أيام عمل)",
+                opt_speed_fast: "تسليم فوري ذو أولوية (48 - 72 ساعة) (+150 €)",
+                calc_est_total: "الإجمالي التقديري للمشروع:",
+                btn_calc_wa: "طلب مع هذه المدة",
+                hw_badge: "أجهزة معدلة وحماية متقدمة Zero-Trust",
+                hw_title: "هواتف محصنة وأجهزة الخصوصية",
+                hw_subtitle: "أجهزة مهيأة من المعالج: هواتف Google Pixel بنظام GrapheneOS وهواتف آيفون معزولة عن الخدمات السحابية بنمط الحماية القصوى.",
+                step_1_model: "1. حدد طراز الجهاز:",
+                step_2_addons: "2. خيارات التحصين والملحقات:",
+                addon_filter: "زجاج حماية الخصوصية وزاوية 28°",
+                addon_vpn: "اشتراك VPN خاص ومشفر (سنة كاملة)",
+                addon_case: "جراب تكتيكي لعزل الترددات اللاسلكية",
+                addon_sandbox: "عزل تام للتطبيقات بدون سحابة",
+                total_device_price: "إجمالي الجهاز المهيأ:",
+                btn_order_wa: "طلب عبر واتساب",
+                btn_order_signal: "طلب عبر سيجنال",
+                hw_tools_title: "أدوات الخصوصية والأمان المادي",
+                hw_tools_subtitle: "مفاتيح تشفير مادية، أنظمة تشغيل غير قابلة للتتبع وحقائب عزل كهرومغناطيسي.",
+                tool_yubikey_desc: "مفتاح أمان مادي FIDO2/WebAuthn منيع ضد محاولات التصيد والاحتيال مع دعم USB-C وNFC.",
+                tool_tails_desc: "نظام تشغيل يعمل مباشرة من الرام ويوجه كافة الاتصالات عبر شبكة Tor دون ترك أي أثر.",
+                tool_faraday_desc: "عزل كهرومغناطيسي تام: يقطع على الفور شبكات 5G و4G والواي فاي والبلوتوث ونظام GPS.",
+                contact_title: "قنوات التواصل الرسمية",
+                contact_subtitle: "تواصل معنا مباشرة عبر تطبيقات المراسلة الآمنة والمشفرة بدون أي وسطاء.",
+                badge_quick_response: "رد سريع",
+                badge_e2ee: "تشفير عسكري من طرف إلى طرف",
+                rights_reserved: "جميع الحقوق محفوظة.",
+                footer_claim: "هندسة الويب، الأتمتة المتقدمة والأمن السيبراني"
+            }
+        };
+
+        let currentLang = localStorage.getItem('blackshield_lang') || 'es';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('blackshield_lang', lang);
+            const htmlEl = document.documentElement;
+
+            // Cambio de Dirección para Árabe (RTL vs LTR)
+            if (lang === 'ar') {
+                htmlEl.setAttribute('dir', 'rtl');
+                htmlEl.setAttribute('lang', 'ar');
+            } else {
+                htmlEl.setAttribute('dir', 'ltr');
+                htmlEl.setAttribute('lang', lang);
+            }
+
+            // Estilo de botones de idioma
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('bg-cyan-500', 'text-black');
+                    btn.classList.remove('text-slate-400');
+                } else {
+                    btn.classList.remove('bg-cyan-500', 'text-black');
+                    btn.classList.add('text-slate-400');
+                }
+            });
+
+            // Traducir todos los elementos marcados con data-i18n
+            const dict = translations[lang] || translations.es;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.textContent = dict[key];
+                }
+            });
+
+            // Actualizar mensajes dinámicos
+            updateServicesBudget();
+            updateCalculator();
+            updatePhoneFinalPrice();
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetLang = btn.getAttribute('data-lang');
+                setLanguage(targetLang);
+            });
+        });
+
+
+        // 2. Fondo de Partículas Canvas
+        const canvas = document.getElementById('space-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 55;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.35;
+                this.vy = (Math.random() - 0.5) * 0.35;
+                this.radius = Math.random() * 1.5 + 0.5;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(200, 225, 255, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateSpace() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 110) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.12 * (1 - dist / 110)})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateSpace);
+        }
+        animateSpace();
+
+
+        // 3. Selector de Servicios Digitales
+        const serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+        const selectedTotalEl = document.getElementById('selected-total');
+        const selectedMonthlyEl = document.getElementById('selected-monthly');
+        const selectedMonthlyWrap = document.getElementById('selected-monthly-wrap');
+        const btnOrderServicesWa = document.getElementById('btn-order-services-wa');
+
+        function updateServicesBudget() {
+            let totalOnce = 0;
+            let totalMonthly = 0;
+            let selectedNames = [];
+
+            serviceCheckboxes.forEach(cb => {
+                if (cb.checked) {
+                    const price = parseInt(cb.getAttribute('data-price'));
+                    const isMonthly = cb.getAttribute('data-monthly') === 'true';
+                    const name = cb.getAttribute('data-name');
+                    if (isMonthly) {
+                        totalMonthly += price;
+                        selectedNames.push(`${name} (${price}€/m)`);
+                    } else {
+                        totalOnce += price;
+                        selectedNames.push(`${name} (${price}€)`);
+                    }
+                }
+            });
+
+            selectedTotalEl.textContent = totalOnce;
+            if (totalMonthly > 0) {
+                selectedMonthlyWrap.classList.remove('hidden');
+                selectedMonthlyEl.textContent = totalMonthly;
+            } else {
+                selectedMonthlyWrap.classList.add('hidden');
+            }
+
+            const textMsg = encodeURIComponent(
+                `[BlackShield Request]\n- Selected Modules: ${selectedNames.join(', ')}\n- Total: ${totalOnce}€${totalMonthly > 0 ? ` + ${totalMonthly}€/month` : ''}`
+            );
+            btnOrderServicesWa.href = `https://wa.me/34631468154?text=${textMsg}`;
+        }
+
+        serviceCheckboxes.forEach(cb => cb.addEventListener('change', updateServicesBudget));
+        updateServicesBudget();
+
+
+        // 4. Calculadora de Plazos
+        const calcBaseType = document.getElementById('calc-base-type');
+        const calcSpeed = document.getElementById('calc-speed');
+        const calcResult = document.getElementById('calc-result');
+        const btnCalcWa = document.getElementById('btn-calc-wa');
+
+        function updateCalculator() {
+            const base = parseInt(calcBaseType.value);
+            const extra = parseInt(calcSpeed.value);
+            const total = base + extra;
+            calcResult.textContent = total;
+
+            const baseText = calcBaseType.options[calcBaseType.selectedIndex].text;
+            const speedText = calcSpeed.options[calcSpeed.selectedIndex].text;
+            const textMsg = encodeURIComponent(
+                `[BlackShield Project Calculation]\n- Scope: ${baseText}\n- Turnaround: ${speedText}\n- Estimated Cost: ${total}€`
+            );
+            btnCalcWa.href = `https://wa.me/34631468154?text=${textMsg}`;
+        }
+
+        calcBaseType.addEventListener('change', updateCalculator);
+        calcSpeed.addEventListener('change', updateCalculator);
+        updateCalculator();
+
+
+        // 5. Configurador de Terminales Privados
+        const tabPixel = document.getElementById('tab-pixel');
+        const tabIphone = document.getElementById('tab-iphone');
+        const modelsPixelGrid = document.getElementById('models-pixel-grid');
+        const modelsIphoneGrid = document.getElementById('models-iphone-grid');
+
+        const phoneDisplayName = document.getElementById('phone-display-name');
+        const phoneBrandTag = document.getElementById('phone-brand-tag');
+        const phoneSecurityChip = document.getElementById('phone-security-chip');
+        const phoneFinalPrice = document.getElementById('phone-final-price');
+        const phoneOriginalStrike = document.getElementById('phone-original-strike');
+        const pixelVisorGroup = document.getElementById('pixel-visor-group');
+        const iphoneCameraGroup = document.getElementById('iphone-camera-group');
+        const screenGrapheneLogo = document.getElementById('screen-graphene-logo');
+        const phoneAddonCheckboxes = document.querySelectorAll('.phone-addon-checkbox');
+        const btnOrderPhoneWa = document.getElementById('btn-order-phone-wa');
+
+        let currentSelectedModel = {
+            name: 'Google Pixel 6',
+            basePrice: 350,
+            originalPrice: 650,
+            chip: 'Titan M2 Security Chip',
+            type: 'pixel'
+        };
+
+        tabPixel.addEventListener('click', () => {
+            tabPixel.classList.replace('border-white/10', 'border-cyanGlow');
+            tabPixel.classList.replace('bg-slate-900/60', 'bg-cyanGlow');
+            tabPixel.classList.replace('text-slate-300', 'text-black');
+            tabPixel.classList.add('font-black');
+
+            tabIphone.classList.replace('border-cyanGlow', 'border-white/10');
+            tabIphone.classList.replace('bg-cyanGlow', 'bg-slate-900/60');
+            tabIphone.classList.replace('text-black', 'text-slate-300');
+            tabIphone.classList.remove('font-black');
+
+            modelsPixelGrid.classList.remove('hidden');
+            modelsIphoneGrid.classList.add('hidden');
+
+            const firstPixelBtn = modelsPixelGrid.querySelector('.model-select-btn');
+            if (firstPixelBtn) firstPixelBtn.click();
+        });
+
+        tabIphone.addEventListener('click', () => {
+            tabIphone.classList.replace('border-white/10', 'border-cyanGlow');
+            tabIphone.classList.replace('bg-slate-900/60', 'bg-cyanGlow');
+            tabIphone.classList.replace('text-slate-300', 'text-black');
+            tabIphone.classList.add('font-black');
+
+            tabPixel.classList.replace('border-cyanGlow', 'border-white/10');
+            tabPixel.classList.replace('bg-cyanGlow', 'bg-slate-900/60');
+            tabPixel.classList.replace('text-black', 'text-slate-300');
+            tabPixel.classList.remove('font-black');
+
+            modelsIphoneGrid.classList.remove('hidden');
+            modelsPixelGrid.classList.add('hidden');
+
+            const firstIphoneBtn = modelsIphoneGrid.querySelector('.model-select-btn');
+            if (firstIphoneBtn) firstIphoneBtn.click();
+        });
+
+        const allModelButtons = document.querySelectorAll('.model-select-btn');
+        allModelButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                allModelButtons.forEach(b => {
+                    b.classList.remove('border-cyanGlow', 'bg-cyan-950/40');
+                    b.classList.add('border-white/5', 'bg-slate-900/40');
+                });
+                btn.classList.add('border-cyanGlow', 'bg-cyan-950/40');
+                btn.classList.remove('border-white/5', 'bg-slate-900/40');
+
+                currentSelectedModel.name = btn.getAttribute('data-name');
+                currentSelectedModel.basePrice = parseInt(btn.getAttribute('data-price'));
+                currentSelectedModel.originalPrice = parseInt(btn.getAttribute('data-original'));
+                currentSelectedModel.chip = btn.getAttribute('data-chip');
+                currentSelectedModel.type = btn.getAttribute('data-type');
+
+                if (currentSelectedModel.type === 'pixel') {
+                    pixelVisorGroup.classList.remove('hidden');
+                    iphoneCameraGroup.classList.add('hidden');
+                    screenGrapheneLogo.classList.remove('hidden');
+                    phoneBrandTag.textContent = 'GrapheneOS Verified';
+                } else {
+                    pixelVisorGroup.classList.add('hidden');
+                    iphoneCameraGroup.classList.remove('hidden');
+                    screenGrapheneLogo.classList.add('hidden');
+                    phoneBrandTag.textContent = 'Zero-Cloud & Lockdown Mode';
+                }
+
+                phoneDisplayName.textContent = currentSelectedModel.name;
+                phoneSecurityChip.textContent = currentSelectedModel.chip;
+
+                updatePhoneFinalPrice();
+            });
+        });
+
+        function updatePhoneFinalPrice() {
+            let addonsSum = 0;
+            let selectedAddonNames = [];
+
+            phoneAddonCheckboxes.forEach(cb => {
+                if (cb.checked) {
+                    addonsSum += parseInt(cb.getAttribute('data-price'));
+                    selectedAddonNames.push(cb.getAttribute('data-name'));
+                }
+            });
+
+            const finalPrice = currentSelectedModel.basePrice + addonsSum;
+            const originalPrice = currentSelectedModel.originalPrice + addonsSum;
+
+            phoneFinalPrice.textContent = finalPrice;
+            phoneOriginalStrike.textContent = `${originalPrice} €`;
+
+            const addonsText = selectedAddonNames.length > 0 ? ` + (${selectedAddonNames.join(', ')})` : '';
+            const textMsg = encodeURIComponent(
+                `[BlackShield Hardware Order]\n- Model: ${currentSelectedModel.name}${addonsText}\n- Total Price: ${finalPrice}€`
+            );
+            btnOrderPhoneWa.href = `https://wa.me/34631468154?text=${textMsg}`;
+        }
+
+        phoneAddonCheckboxes.forEach(cb => cb.addEventListener('change', updatePhoneFinalPrice));
+
+        // Inicializar idioma guardado al cargar
+        window.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLang);
+        });
+    </script>
+
+</body>
+
+</html>
