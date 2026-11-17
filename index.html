@@ -50,7 +50,31 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 2;
+        }
+
+        /* Integración del escudo sin bordes ni recuadros */
+        .seamless-emblem {
+            mix-blend-mode: lighten;
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 62%, rgba(0, 0, 0, 0) 98%);
+            mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 62%, rgba(0, 0, 0, 0) 98%);
+            filter: drop-shadow(0 0 28px rgba(255, 255, 255, 0.18));
+        }
+
+        @keyframes floatShield {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-9px);
+            }
+        }
+
+        .animate-float-shield {
+            animation: floatShield 6s ease-in-out infinite;
         }
 
         /* Gradient Typography */
@@ -138,30 +162,65 @@
         .dark ::-webkit-scrollbar-thumb {
             background: #334155;
         }
+
+        /* Fusión sin bordes para el logo con fondo negro y animación flotante */
+        .seamless-emblem {
+            mix-blend-mode: lighten;
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 58%, rgba(0, 0, 0, 0) 98%);
+            mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 58%, rgba(0, 0, 0, 0) 98%);
+        }
+
+        @keyframes floatShield {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .animate-float-shield {
+            animation: floatShield 5s ease-in-out infinite;
+        }
     </style>
 </head>
 
 <body
     class="antialiased selection:bg-slate-300 selection:text-black dark:selection:bg-slate-700 dark:selection:text-white">
 
-    <!-- Particle Background -->
+    <!-- 1. CAPA BASE: Degradado vertical (Negro -> Plata -> Blanco) o Negro Puro en Modo Oscuro -->
+    <div
+        class="fixed inset-0 z-0 pointer-events-none bg-gradient-to-b from-black via-slate-300 to-white dark:bg-none dark:bg-void transition-colors duration-500">
+    </div>
+
+    <!-- 2. CAPA INTERMEDIA: Escudo Marca de Agua que te acompaña al bajar (Scroll Parallax) -->
+    <div id="scroll-watermark"
+        class="fixed inset-0 z-[1] pointer-events-none flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <img id="scroll-watermark-img" src="1000231181.png" alt=""
+            class="w-80 sm:w-[540px] max-w-[88vw] object-contain seamless-emblem">
+    </div>
+
+    <!-- 3. CAPA DE PARTÍCULAS Y CONSTELACIONES (Flotando encima del fondo) -->
     <canvas id="space-canvas"></canvas>
 
-    <!-- Scrolling Gradient Wrapper (Default Light Mode) / Pure Dark Mode -->
+    <!-- 4. CAPA DE CONTENIDO INTERACTIVO -->
     <div
-        class="relative z-10 flex flex-col min-h-screen bg-gradient-to-b from-black via-slate-300 to-white dark:bg-none dark:bg-void text-slate-900 dark:text-slate-200 transition-colors duration-500">
+        class="relative z-10 flex flex-col min-h-screen text-slate-900 dark:text-slate-200 transition-colors duration-500">
 
         <!-- HEADER -->
         <header class="sticky top-0 z-50 glass-stealth border-b border-slate-300 dark:border-white/10">
             <div
                 class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between flex-row-reverse-rtl">
 
-                <!-- Primary Logo (Tu imagen real 1000231181.png) -->
+                <!-- Primary Logo (Sin bordes ni recuadro) -->
                 <a href="#" class="flex items-center gap-2 sm:gap-3.5 group flex-row-reverse-rtl">
                     <div
-                        class="w-12 h-12 sm:w-14 sm:h-14 relative flex items-center justify-center rounded-xl overflow-hidden bg-black border border-white/15 shadow-md transition-transform duration-300 group-hover:scale-105">
+                        class="w-12 h-12 sm:w-14 sm:h-14 relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                         <img src="1000231181.png" alt="BlackShield Logo"
-                            class="custom-logo-img w-full h-full object-contain">
+                            class="w-full h-full object-contain seamless-emblem">
                     </div>
                     <div class="flex flex-col hidden sm:flex">
                         <span
@@ -190,14 +249,6 @@
 
                 <!-- Controls & Contact -->
                 <div class="flex items-center gap-2 sm:gap-3 flex-row-reverse-rtl">
-
-                    <!-- Botón para previsualizar tu archivo 1000231181.png en vivo en el Preview -->
-                    <label for="logo-file-input" title="Cargar tu imagen 1000231181.png para verla en el Preview"
-                        class="cursor-pointer px-2.5 py-1.5 rounded-lg bg-slate-900 text-white dark:bg-slate-200 dark:text-black text-[10px] font-mono font-bold flex items-center gap-1.5 hover:opacity-90 transition-all shadow">
-                        <i class="fa-solid fa-image"></i>
-                        <span class="hidden md:inline">Cargar Logo</span>
-                        <input type="file" id="logo-file-input" accept="image/*" class="hidden">
-                    </label>
 
                     <!-- Dark/Light Mode Toggle -->
                     <button id="theme-toggle"
@@ -243,11 +294,11 @@
                 <span data-i18n="hero_badge">Sistemas de Alta Disponibilidad & Blindaje Digital</span>
             </div>
 
-            <!-- Tu Imagen Oficial Exacta (1000231181.png) -->
-            <div
-                class="w-72 sm:w-[420px] max-w-full mb-6 relative flex flex-col items-center justify-center rounded-2xl overflow-hidden bg-black/90 p-2 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.9)] transition-transform duration-700 hover:scale-[1.02]">
+            <!-- Tu Imagen Oficial SIN bordes y con efecto Parallax al hacer scroll -->
+            <div id="hero-logo-container"
+                class="w-80 sm:w-[460px] max-w-full mb-4 relative flex flex-col items-center justify-center pointer-events-none select-none will-change-transform">
                 <img src="1000231181.png" alt="BlackShield Emblem"
-                    class="custom-logo-img w-full h-auto object-contain rounded-xl">
+                    class="w-full h-auto object-contain seamless-emblem animate-float-shield">
             </div>
 
             <!-- Custom Notification Banner (No alert() needed) -->
@@ -946,58 +997,112 @@
             localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
         });
 
-        // 1B. CARGADOR DE TU LOGO REAL (1000231181.png) PARA PREVIEW Y PERSISTENCIA
-        const logoInput = document.getElementById('logo-file-input');
-        const logoImgs = document.querySelectorAll('.custom-logo-img');
-        const savedLogo = localStorage.getItem('blackshield_real_logo');
+        // 1B. ANIMACIÓN PARALLAX DEL ESCUDO AL BAJAR (Acompaña de fondo)
+        const heroLogoContainer = document.getElementById('hero-logo-container');
+        const scrollWatermark = document.getElementById('scroll-watermark');
+        const scrollWatermarkImg = document.getElementById('scroll-watermark-img');
 
-        if (savedLogo) {
-            logoImgs.forEach(img => { img.src = savedLogo; });
+        function handleScrollShield() {
+            const scrollY = window.scrollY;
+
+            // El escudo del Hero baja contigo suavemente mientras se funde
+            if (heroLogoContainer) {
+                const translateY = scrollY * 0.42;
+                const scale = Math.max(0.86, 1 - scrollY * 0.00025);
+                const opacity = Math.max(0, 1 - scrollY / 520);
+                heroLogoContainer.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+                heroLogoContainer.style.opacity = opacity;
+            }
+
+            // Al bajar, el escudo aparece de fondo acompañando toda la página
+            if (scrollWatermark && scrollWatermarkImg) {
+                if (scrollY > 180) {
+                    const wmOpacity = Math.min(0.16, (scrollY - 180) / 1000);
+                    scrollWatermark.style.opacity = wmOpacity;
+                    const floatOffset = Math.sin(scrollY * 0.004) * 18;
+                    const wmScale = 1 + Math.min(0.15, scrollY * 0.00008);
+                    scrollWatermarkImg.style.transform = `translate3d(0, ${floatOffset}px, 0) scale(${wmScale})`;
+
+                    const isDark = htmlEl.classList.contains('dark');
+                    if (!isDark && scrollY > 650) {
+                        scrollWatermarkImg.style.mixBlendMode = 'normal';
+                        scrollWatermarkImg.style.filter = 'invert(1) grayscale(1) contrast(1.5)';
+                    } else {
+                        scrollWatermarkImg.style.mixBlendMode = 'lighten';
+                        scrollWatermarkImg.style.filter = 'drop-shadow(0 0 25px rgba(255,255,255,0.12))';
+                    }
+                } else {
+                    scrollWatermark.style.opacity = 0;
+                }
+            }
         }
+        window.addEventListener('scroll', handleScrollShield, { passive: true });
+        handleScrollShield();
 
-        if (logoInput) {
-            logoInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = function (evt) {
-                    const dataUrl = evt.target.result;
-                    logoImgs.forEach(img => { img.src = dataUrl; });
-                    try { localStorage.setItem('blackshield_real_logo', dataUrl); } catch (err) { }
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        // 2. ADAPTIVE PARTICLE CANVAS
+        // 2. ADAPTIVE PARTICLE & CONSTELLATION CANVAS (Visible en toda la página)
         let particles = [];
-        const pCount = window.innerWidth < 600 ? 30 : 60;
+        const pCount = window.innerWidth < 600 ? 45 : 85;
 
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas); resizeCanvas();
 
         class Particle {
             constructor() {
-                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.3; this.vy = (Math.random() - 0.5) * 0.3;
-                this.r = Math.random() * 1.2 + 0.5; this.a = Math.random() * 0.5 + 0.2;
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.45;
+                this.vy = (Math.random() - 0.5) * 0.45;
+                this.r = Math.random() * 1.8 + 0.8;
+                this.a = Math.random() * 0.65 + 0.25;
             }
             update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < 0) this.x = canvas.width; if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height; if (this.y > canvas.height) this.y = 0;
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
             }
             draw() {
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-                // Using slate-400 for particles so they are visible on both black and white backgrounds
-                ctx.fillStyle = htmlEl.classList.contains('dark') ? `rgba(203, 213, 225, ${this.a})` : `rgba(148, 163, 184, ${this.a})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                const isDark = htmlEl.classList.contains('dark');
+                if (isDark || this.y < canvas.height * 0.5) {
+                    ctx.fillStyle = `rgba(226, 232, 240, ${this.a})`;
+                } else {
+                    ctx.fillStyle = `rgba(71, 85, 105, ${this.a})`;
+                }
                 ctx.fill();
             }
         }
         for (let i = 0; i < pCount; i++) particles.push(new Particle());
+
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
+            const isDark = htmlEl.classList.contains('dark');
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                // Líneas de constelación entre partículas cercanas
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 115) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        const lineAlpha = 0.22 * (1 - dist / 115);
+                        if (isDark || particles[i].y < canvas.height * 0.5) {
+                            ctx.strokeStyle = `rgba(203, 213, 225, ${lineAlpha})`;
+                        } else {
+                            ctx.strokeStyle = `rgba(100, 116, 139, ${lineAlpha})`;
+                        }
+                        ctx.lineWidth = 0.7;
+                        ctx.stroke();
+                    }
+                }
+            }
             requestAnimationFrame(animate);
         }
         animate();
